@@ -1,4 +1,7 @@
 # Ligaturizer #
+
+![](img.png)
+
 This repo contains:
 1. A script [ligaturize.py](ligaturize.py) to add the ligatures from [Fira Code](https://github.com/tonsky/FiraCode) to a font without ligatures
 2. Programming fonts with ligatures added (generated using the above script), including:
