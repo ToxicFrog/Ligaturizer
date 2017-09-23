@@ -4,8 +4,8 @@ import fontforge
 import os
 
 # Constants
-SOURCE_FONT_DIR = "source-fonts"
-OUTPUT_FONT_DIR = "ligaturized-fonts"
+SOURCE_FONT_DIR = "input-fonts"
+OUTPUT_FONT_DIR = "output-fonts"
 COPYRIGHT = '\nProgramming ligatures added by Ilya Skriblovsky from FiraCode\nFiraCode Copyright (c) 2015 by Nikita Prokopov'
 
 def get_input_fontname():
