@@ -6,20 +6,21 @@
 
 What this repo contains:
 1.  Programming fonts with ligatures added (in `output-fonts/`), including:
-  * Anonymous Pro
-  * CamingoCode
-  * Cousine
-  * DejaVu Sans Mono
-  * Droid Sans Mono
-  * Hack
-  * Inconsolata-g
-  * Inconsolata
-  * Meslo (sizes: LGL, LGLDZ, LGM, LGMDZ, LGS, LGSDZ)
-  * Oxygen Mono
-  * Roboto Mono
-  * SF Mono
-  * Ubuntu Mono
-  * edlo
+  * [Anonymous Pro](output-fonts/Anonymous_Pro.ttf)
+  * [CamingoCode](output-fonts/CamingoCode.ttf)
+  * [Cousine](output-fonts/Cousine.ttf)
+  * [DejaVu Sans Mono](output-fonts/DejaVuSansMono.ttf)
+  * [Droid Sans Mono](output-fonts/DroidSansMono.ttf)
+  * [edlo](output-fonts/edlo.ttf)
+  * [Hack](output-fonts/Hack.ttf)
+  * [Inconsolata](output-fonts/Inconsolata.ttf) &   [Inconsolata-g](output-fonts/Inconsolata-g.ttf)
+  * IBM Plex Mono: [Regular](output-fonts/IBMPlexMono.ttf),   [Semibold](output-fonts/IBMPlexMono-SemiBold.ttf)
+  * Meslo ([LGL](output-fonts/MesloLGL.ttf),   [LGLDZ](output-fonts/MesloLGLDZ.ttf), [LGM](output-fonts/MesloLGM.ttf),   [LGMDZ](output-fonts/MesloLGMDZ.ttf), [LGS](output-fonts/MesloLGS.ttf),   [LGSDZ](output-fonts/MesloLGSDZ.ttf))
+  * [Oxygen Mono](output-fonts/OxygenMono.ttf)
+  * [Roboto Mono](output-fonts/RobotoMono.ttf)
+  * SF Mono: [Regular](output-fonts/SFMono.ttf),   [Semibold](output-fonts/SFMono-Semibold.ttf)
+  * [Ubuntu Mono](output-fonts/UbuntuMono.ttf)
+
 2.  A script [ligaturize.py](ligaturize.py) that adds the ligatures from [Fira Code](https://github.com/tonsky/FiraCode) to a font without ligatures
 
 **Credit**: This awesome script was written by [IlyaSkriblovsky](https://github.com/IlyaSkriblovsky) for adding ligatures to Deja Vu Sans Mono ([dv-code-font](https://github.com/IlyaSkriblovsky/dv-code-font)). I've just made a few minor changes to generalize the script so that it works for any given font.
