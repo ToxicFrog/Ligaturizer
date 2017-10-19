@@ -1,10 +1,10 @@
 # Ligaturizer #
 
-![](img.png)
+![](images/banner.png)
 
 **Add ligatures to any coding font!**
 
-What this repo contains:
+**This repo contains 2 things:**
 1.  Programming fonts with ligatures added (in `output-fonts/`), including:
   * [Anonymous Pro](output-fonts/Anonymous_Pro.ttf)
   * [CamingoCode](output-fonts/CamingoCode.ttf)
@@ -21,20 +21,26 @@ What this repo contains:
   * SF Mono: [Regular](output-fonts/SFMono.ttf),   [Semibold](output-fonts/SFMono-Semibold.ttf)
   * [Ubuntu Mono](output-fonts/UbuntuMono.ttf)
 
-2.  A script [ligaturize.py](ligaturize.py) that adds the ligatures from [Fira Code](https://github.com/tonsky/FiraCode) to a font without ligatures
+2.  A fontforge python script ([ligaturize.py](ligaturize.py)) that adds the ligatures from [Fira Code](https://github.com/tonsky/FiraCode) to a font without ligatures
 
-**Credit**: This awesome script was written by [IlyaSkriblovsky](https://github.com/IlyaSkriblovsky) for adding ligatures to Deja Vu Sans Mono ([dv-code-font](https://github.com/IlyaSkriblovsky/dv-code-font)). I've just made a few minor changes to generalize the script so that it works for any given font.
+Here's a couple examples of the fonts generated: SF Mono with ligatures (note the `!=` and `->`):  
+![](images/sf-mono.png)  
+![](images/menlo.png)  
+
+**Credit**   
+This awesome script was written by [IlyaSkriblovsky](https://github.com/IlyaSkriblovsky) for adding ligatures to Deja Vu Sans Mono ([dv-code-font](https://github.com/IlyaSkriblovsky/dv-code-font)). I made a few changes to generalize the script so that it works for any font, so that I could add ligatures to my favorite fonts.
 
 ## Requirements ##
+**Using the Fonts**: See the [FiraCode README](https://github.com/tonsky/FiraCode) for a list of supported editors.
+
 **Script**: This script requires FontForge python bindings. For Debian/Ubuntu they are available in `python-fontforge` package. For macOS,
 they are available via brew (`brew install fontforge`).
-
-**Using the Fonts**: See the [FiraCode README](https://github.com/tonsky/FiraCode) for a list of supported editors.
 
 ## Using the Script ##
 1.  Move/copy the font you want to ligaturize into `input-fonts/`
 2.  Run the script: `$ fontforge -lang=py ligaturize.py`
-3.  You'll be prompted for the name of the font, and the name for the generated font. Example:
+3.  You'll be prompted for the name of the font, and the name for the generated font.
+Example:
 
 ```shell
 ❯ fontforge -lang=py ligaturize.py
