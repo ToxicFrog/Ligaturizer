@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 #
-# usage: fontforge -lang=py ligaturize.py <input file> <output file>
+# usage: fontforge -lang=py ligaturize.py <input file> <output file> [ligature file]
 #
 # It will copy input to output, updating the embedded font name and splicing
-# in the ligatures from FiraCode-Medium.otf (which must be in $PWD).
+# in the ligatures from FiraCode-Medium.otf (which must be in $PWD). If the
+# ligature file is not specified, it will try to guess an appropriate Fira Code
+# OTF based on the name of the output file.
 #
 # See ligatures.py for a list of all the ligatures that will be copied.
 
@@ -19,9 +21,21 @@ COPYRIGHT = '''
 Programming ligatures added by Ilya Skriblovsky from FiraCode
 FiraCode Copyright (c) 2015 by Nikita Prokopov'''
 
-config = {
-    'firacode_ttf': 'FiraCode-Medium.otf',
-}
+def get_ligature_source(fontname):
+    if len(sys.argv) > 3:
+        # User explicitly told us which source to use.
+        return sys.argv[3]
+
+    for weight in ['Bold', 'Retina', 'Medium', 'Regular', 'Light']:
+        if fontname.endswith('-' + weight):
+            # Exact match for one of the Fira Code weights
+            return 'fira/FiraCode-%s.otf' % weight
+
+    # No exact match. Guess that we want 'Bold' if the font name has 'Bold' in
+    # it, and 'Regular' otherwise.
+    if 'Bold' in fontname:
+        return 'fira/FiraCode-Bold.otf'
+    return 'fira/FiraCode-Regular.otf'
 
 def get_output_font_details(fontpath):
     fontname = path.splitext(path.basename(fontpath))[0]
@@ -140,7 +154,9 @@ output_font_path = sys.argv[2]
 output_font = get_output_font_details(output_font_path)
 
 font = fontforge.open(input_font_path)
-firacode = fontforge.open(config['firacode_ttf'])
+ligature_font_path = get_ligature_source(output_font['fontname'])
+print('Reading ligatures from %s' % ligature_font_path)
+firacode = fontforge.open(ligature_font_path)
 firacode.em = font.em
 
 creator = LigatureCreator(font, firacode)
