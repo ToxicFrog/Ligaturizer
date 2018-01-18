@@ -37,31 +37,10 @@ This awesome script was written by [IlyaSkriblovsky](https://github.com/IlyaSkri
 they are available via brew (`brew install fontforge`).
 
 ## Using the Script ##
-1.  Move/copy the font you want to ligaturize into `input-fonts/`
+
+1.  Move/copy the font you want to ligaturize into `input-fonts/` (or somewhere else convenient).
 2.  Edit `ligatures.py` to disable any ligatures you don't want.
-3.  Run the script: `$ fontforge -lang=py ligaturize.py`
-4.  You'll be prompted for the name of the font, and the name for the generated font.
-Example:
-
-```shell
-❯ fontforge -lang=py ligaturize.py
-    ...
-Enter the source font filename (including extension): RobotoMono-Regular.ttf
-Enter a name for your ligaturized font -- or press ENTER to use the same name: <PRESS ENTER>
-    ...
-Generated ligaturized font Roboto Mono L in ligaturized-fonts/RobotoMono.ttf
-```
-
-```shell
-❯ fontforge -lang=py ligaturize.py
-    ...
-Enter the source font filename (including extension): RobotoMono-Regular.ttf
-Enter a name for your ligaturized font -- or press ENTER to use the same name: RobotoMonoL
-    ...
-Generated ligaturized font Roboto Mono L in ligaturized-fonts/RobotoMonoL.ttf
-```
-
-If you don't provide a name for the new font, it will have the same name as the input font.
+3.  Run the script: `$ fontforge -lang=py ligaturize.py <INPUT> <OUTPUT>`, e.g. `$ fontforge -lang=py ligaturize.py input-fonts/Cousine-Regular.ttf output-fonts/CousineLigaturized-Regular.ttf`
 
 ## Misc. ##
 

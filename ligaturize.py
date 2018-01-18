@@ -1,24 +1,32 @@
 #!/usr/bin/env python
+#
+# usage: fontforge -lang=py ligaturize.py <input file> <output file>
+#
+# It will copy input to output, updating the embedded font name and splicing
+# in the ligatures from FiraCode-Medium.otf (which must be in $PWD).
+#
+# See ligatures.py for a list of all the ligatures that will be copied.
 
 import fontforge
 import os
+from os import path
+import sys
 
 from ligatures import ligatures
 
 # Constants
-SOURCE_FONT_DIR = "input-fonts"
-OUTPUT_FONT_DIR = "output-fonts"
-COPYRIGHT = '\nProgramming ligatures added by Ilya Skriblovsky from FiraCode\nFiraCode Copyright (c) 2015 by Nikita Prokopov'
+COPYRIGHT = '''
+Programming ligatures added by Ilya Skriblovsky from FiraCode
+FiraCode Copyright (c) 2015 by Nikita Prokopov'''
 
-def get_input_fontname():
-    return raw_input('Enter the source font filename (including extension): ')
+config = {
+    'firacode_ttf': 'FiraCode-Medium.otf',
+}
 
-def get_input_path(input_fontname):
-    return SOURCE_FONT_DIR + "/" + input_fontname
 
-# "RobotoMono-Regular.ttf" -> "RobotoMono-Regular"
-def name_without_file_extension(fontname):
-    return fontname[:-4] if fontname.endswith(('.otf', '.ttf')) else fontname
+# "input-fonts/RobotoMono-Regular.ttf" -> "RobotoMono-Regular"
+def name_without_file_extension(fontpath):
+    return path.splitext(path.basename(fontpath))[0]
 
 # "RobotoMono-Regular" -> "RobotoMono"
 def name_without_width_variant(fontname):
@@ -29,16 +37,11 @@ def name_without_width_variant(fontname):
         no_variant = fontname[:-4]
     return no_variant[:-1] if (no_variant.endswith(" ") or no_variant.endswith("-")) else no_variant
 
-def get_output_fontname(input_name):
-    new_fontname = raw_input('Enter a name for your ligaturized font -- or press ENTER to use the same name: ')
-    if new_fontname == "":
-        new_fontname = input_name
-    return name_without_width_variant(name_without_file_extension(new_fontname))
-
-def get_output_font_details(fontname):
+def get_output_font_details(fontpath):
+    fontname = name_without_width_variant(name_without_file_extension(fontpath))
     name_with_spaces = split_camel_case(fontname)
     return {
-        'filename': fontname + '.ttf',
+        'filename': fontpath,
         'fontname': fontname,
         'fullname': name_with_spaces,
         'familyname': name_with_spaces,
@@ -60,11 +63,6 @@ def split_camel_case(str):
         else:
             acc += ch
     return acc
-
-config = {
-    'firacode_ttf': 'FiraCode-Medium.otf',
-
-}
 
 class LigatureCreator(object):
 
@@ -134,11 +132,10 @@ def change_font_names(font, fontname, fullname, familyname, copyright_add, uniqu
         for row in font.sfnt_names
     )
 
-input_fontname = get_input_fontname()
-input_font_path = get_input_path(input_fontname)
+input_font_path = sys.argv[1]
+output_font_path = sys.argv[2]
 
-output_fontname = get_output_fontname(input_fontname)
-output_font = get_output_font_details(output_fontname)
+output_font = get_output_font_details(output_font_path)
 
 font = fontforge.open(input_font_path)
 firacode = fontforge.open(config['firacode_ttf'])
@@ -162,7 +159,6 @@ change_font_names(font, output_font['fontname'],
 
 # Generate font & move to output directory
 output_name = output_font['filename']
-output_full_path = OUTPUT_FONT_DIR + "/" + output_name
 font.generate(output_name)
-os.rename(output_name, output_full_path)
-print "Generated ligaturized font %s in %s" % (output_font['fullname'], output_full_path)
+os.rename(output_name, output_font_path)
+print "Generated ligaturized font %s in %s" % (output_font['fullname'], output_font_path)
