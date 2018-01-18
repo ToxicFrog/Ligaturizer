@@ -62,15 +62,27 @@ class LigatureCreator(object):
 
         self._lig_counter = 0
 
+    def copy_ligature_from_source(self, ligature_name):
+        try:
+            self.firacode.selection.none()
+            self.firacode.selection.select(ligature_name)
+            self.firacode.copy()
+            return True
+        except ValueError:
+            return False
+
+
     def add_ligature(self, input_chars, firacode_ligature_name):
+        if not self.copy_ligature_from_source(firacode_ligature_name):
+            print('Error reading ligature %s from %s -- skipping' % (
+                firacode_ligature_name, self.firacode.fontname))
+            return
+
         self._lig_counter += 1
 
         ligature_name = 'lig.{}'.format(self._lig_counter)
 
         self.font.createChar(-1, ligature_name)
-        firacode.selection.none()
-        firacode.selection.select(firacode_ligature_name)
-        firacode.copy()
         self.font.selection.none()
         self.font.selection.select(ligature_name)
         self.font.paste()
