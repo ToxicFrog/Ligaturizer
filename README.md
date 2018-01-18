@@ -42,6 +42,8 @@ they are available via brew (`brew install fontforge`).
 2.  Edit `ligatures.py` to disable any ligatures you don't want.
 3.  Run the script: `$ fontforge -lang=py ligaturize.py <INPUT> <OUTPUT>`, e.g. `$ fontforge -lang=py ligaturize.py input-fonts/Cousine-Regular.ttf output-fonts/CousineLigaturized-Regular.ttf`
 
+The font family and weight for the output font (as recorded in the file) will be automatically set based on the name; if the output is `CousineLigaturized-Regular.ttf`, the font family will be `CousineLigaturized` and the font weight will be `Regular`. If no weight is specified, `Regular` is the default.
+
 ## Misc. ##
 
 For more awesome programming fonts with ligatures, check out:

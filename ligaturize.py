@@ -23,30 +23,19 @@ config = {
     'firacode_ttf': 'FiraCode-Medium.otf',
 }
 
-
-# "input-fonts/RobotoMono-Regular.ttf" -> "RobotoMono-Regular"
-def name_without_file_extension(fontpath):
-    return path.splitext(path.basename(fontpath))[0]
-
-# "RobotoMono-Regular" -> "RobotoMono"
-def name_without_width_variant(fontname):
-    no_variant = fontname
-    if fontname.endswith("Regular"):
-        no_variant = fontname[:-7]
-    elif fontname.endswith("Book"):
-        no_variant = fontname[:-4]
-    return no_variant[:-1] if (no_variant.endswith(" ") or no_variant.endswith("-")) else no_variant
-
 def get_output_font_details(fontpath):
-    fontname = name_without_width_variant(name_without_file_extension(fontpath))
-    name_with_spaces = split_camel_case(fontname)
+    fontname = path.splitext(path.basename(fontpath))[0]
+    if '-' in fontname:
+        [family, weight] = fontname.split('-', 1)
+    else:
+        [family, weight] = [fontname, 'Regular']
     return {
         'filename': fontpath,
-        'fontname': fontname,
-        'fullname': name_with_spaces,
-        'familyname': name_with_spaces,
+        'fontname': '%s-%s' % (family, weight),
+        'fullname': '%s %s' % (split_camel_case(family), split_camel_case(weight)),
+        'familyname': family,
         'copyright_add': COPYRIGHT,
-        'unique_id': name_with_spaces,
+        'unique_id': '%s-%s' % (family, weight),
     }
 
 # Add spaces to UpperCamelCase: 'DVCode' -> 'DV Code'
@@ -63,6 +52,7 @@ def split_camel_case(str):
         else:
             acc += ch
     return acc
+
 
 class LigatureCreator(object):
 
