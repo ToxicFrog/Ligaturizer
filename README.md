@@ -23,11 +23,11 @@
 
 2.  A fontforge python script ([ligaturize.py](ligaturize.py)) that adds the ligatures from [Fira Code](https://github.com/tonsky/FiraCode) to a font without ligatures
 
-Here's a couple examples of the fonts generated: SF Mono with ligatures (note the `!=` and `->`):  
-![](images/sf-mono.png)  
-![](images/menlo.png)  
+Here's a couple examples of the fonts generated: SF Mono with ligatures (note the `!=` and `->`):
+![](images/sf-mono.png)
+![](images/menlo.png)
 
-**Credit**   
+**Credit**
 This awesome script was written by [IlyaSkriblovsky](https://github.com/IlyaSkriblovsky) for adding ligatures to Deja Vu Sans Mono ([dv-code-font](https://github.com/IlyaSkriblovsky/dv-code-font)). I made a few changes to generalize the script so that it works for any font, so that I could add ligatures to my favorite fonts.
 
 ## Requirements ##
@@ -38,8 +38,9 @@ they are available via brew (`brew install fontforge`).
 
 ## Using the Script ##
 1.  Move/copy the font you want to ligaturize into `input-fonts/`
-2.  Run the script: `$ fontforge -lang=py ligaturize.py`
-3.  You'll be prompted for the name of the font, and the name for the generated font.
+2.  Edit `ligatures.py` to disable any ligatures you don't want.
+3.  Run the script: `$ fontforge -lang=py ligaturize.py`
+4.  You'll be prompted for the name of the font, and the name for the generated font.
 Example:
 
 ```shell
