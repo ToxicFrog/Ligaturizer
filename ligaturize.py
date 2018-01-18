@@ -85,7 +85,6 @@ class LigatureCreator(object):
         except ValueError:
             return False
 
-
     def add_ligature(self, input_chars, firacode_ligature_name):
         if firacode_ligature_name is None:
             # No ligature name -- we're just copying a bunch of individual characters.
@@ -137,16 +136,42 @@ class LigatureCreator(object):
 
 
         calt_lookup_name = 'calt.{}'.format(self._lig_counter)
-        self.font.addLookup(calt_lookup_name, 'gsub_contextchain', (), (('calt', (('DFLT', ('dflt',)), ('arab', ('dflt',)), ('armn', ('dflt',)), ('cyrl', ('SRB ', 'dflt')), ('geor', ('dflt',)), ('grek', ('dflt',)), ('lao ', ('dflt',)), ('latn', ('CAT ', 'ESP ', 'GAL ', 'ISM ', 'KSM ', 'LSM ', 'MOL ', 'NSM ', 'ROM ', 'SKS ', 'SSM ', 'dflt')), ('math', ('dflt',)), ('thai', ('dflt',)))),))
+        self.font.addLookup(calt_lookup_name, 'gsub_contextchain', (),
+            (('calt', (('DFLT', ('dflt',)),
+                       ('arab', ('dflt',)),
+                       ('armn', ('dflt',)),
+                       ('cyrl', ('SRB ', 'dflt')),
+                       ('geor', ('dflt',)),
+                       ('grek', ('dflt',)),
+                       ('lao ', ('dflt',)),
+                       ('latn', ('CAT ', 'ESP ', 'GAL ', 'ISM ', 'KSM ', 'LSM ', 'MOL ', 'NSM ', 'ROM ', 'SKS ', 'SSM ', 'dflt')),
+                       ('math', ('dflt',)),
+                       ('thai', ('dflt',)))),))
+        #print('CALT %s (%s)' % (calt_lookup_name, firacode_ligature_name))
         for i, char in enumerate(input_chars):
-            ctx_subtable_name = 'calt.{}.{}'.format(self._lig_counter, i)
-            ctx_spec = '{prev} | {cur} @<{lookup}> | {next}'.format(
+            self.add_calt(calt_lookup_name, 'calt.{}.{}'.format(self._lig_counter, i),
+                '{prev} | {cur} @<{lookup}> | {next}',
                 prev = ' '.join(cr_name(j) for j in range(i)),
                 cur = char,
                 lookup = lookup_name(i),
-                next = ' '.join(input_chars[i+1:]),
-            )
-            self.font.addContextualSubtable(calt_lookup_name, ctx_subtable_name, 'glyph', ctx_spec)
+                next = ' '.join(input_chars[i+1:]))
+
+        # Add ignore rules
+        self.add_calt(calt_lookup_name, 'calt.{}.{}'.format(self._lig_counter, i+1),
+            '| {first} | {rest} {last}',
+            first = input_chars[0],
+            rest = ' '.join(input_chars[1:]),
+            last = input_chars[-1])
+        self.add_calt(calt_lookup_name, 'calt.{}.{}'.format(self._lig_counter, i+2),
+            '{first} | {first} | {rest}',
+            first = input_chars[0],
+            rest = ' '.join(input_chars[1:]))
+
+    def add_calt(self, calt_name, subtable_name, spec, **kwargs):
+        spec = spec.format(**kwargs)
+        #print('    %s: %s ' % (subtable_name, spec))
+        self.font.addContextualSubtable(calt_name, subtable_name, 'glyph', spec)
+
 
 
 def change_font_names(font, fontname, fullname, familyname, copyright_add, unique_id):
