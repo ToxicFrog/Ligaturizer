@@ -87,6 +87,17 @@ class LigatureCreator(object):
 
 
     def add_ligature(self, input_chars, firacode_ligature_name):
+        if firacode_ligature_name is None:
+            # No ligature name -- we're just copying a bunch of individual characters.
+            for char in input_chars:
+                self.firacode.selection.none()
+                self.firacode.selection.select(char)
+                self.firacode.copy()
+                self.font.selection.none()
+                self.font.selection.select(char)
+                self.font.paste()
+            return
+
         if not self.copy_ligature_from_source(firacode_ligature_name):
             print('Error reading ligature %s from %s -- skipping' % (
                 firacode_ligature_name, self.firacode.fontname))

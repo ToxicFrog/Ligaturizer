@@ -1,4 +1,20 @@
 ligatures = [
+    ## These are all the punctuation characters used in Fira Code ligatures.
+    ## Uncomment this block to enable copying of these characters as well; it
+    ## will make punctuation blend in with the ligatures more cleanly, at the
+    ## cost of blending in with the rest of the font not as well.
+    ## You can also edit the 'chars' list to change exactly which characters
+    ## will be copied.
+    # {
+    #     'chars': [
+    #         'ampersand', 'asciicircum', 'asciitilde', 'asterisk', 'at',
+    #         'backslash', 'bar', 'braceleft', 'braceright', 'bracketleft', 'bracketright',
+    #         'colon', 'dollar', 'equal', 'exclam', 'greater', 'hyphen',
+    #         'less', 'numbersign', 'parenleft', 'percent', 'period', 'plus',
+    #         'question', 'semicolon', 'slash', 'underscore',
+    #     ],
+    #     'firacode_ligature_name': None,
+    # },
     {   # <-
         'chars': ['less', 'hyphen'],
         'firacode_ligature_name': 'less_hyphen.liga',
