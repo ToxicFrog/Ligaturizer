@@ -33,10 +33,16 @@ This awesome script was written by [IlyaSkriblovsky](https://github.com/IlyaSkri
 ## Requirements ##
 **Using the Fonts**: See the [FiraCode README](https://github.com/tonsky/FiraCode) for a list of supported editors.
 
-**Script**: This script requires FontForge python bindings. For Debian/Ubuntu they are available in `python-fontforge` package. For macOS,
-they are available via brew (`brew install fontforge`).
+**Script**: This script requires FontForge python bindings. For Debian/Ubuntu they are available in `python-fontforge` package. For OpenSUSE and NixOS, they are included in the `fontforge` package. For macOS, they are available via brew (`brew install fontforge`).
 
-## Using the Script ##
+## Using the Script (automatic) ##
+
+1. Put the font(s) you want into `input-fonts/`.
+2.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
+3. Run `make`.
+4. Retrieve the ligaturized fonts from `output-fonts/`.
+
+## Using the Script (manual) ##
 
 1.  Move/copy the font you want to ligaturize into `input-fonts/` (or somewhere else convenient).
 2.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
