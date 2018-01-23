@@ -213,6 +213,5 @@ change_font_names(font, output_font['fontname'],
 
 # Generate font & move to output directory
 output_name = output_font['filename']
-font.generate(output_name)
-os.rename(output_name, output_font_path)
+font.generate(output_font_path)
 print "Generated ligaturized font %s in %s" % (output_font['fullname'], output_font_path)
