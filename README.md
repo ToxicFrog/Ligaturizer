@@ -5,44 +5,46 @@
 **Add ligatures to any coding font!**
 
 **This repo contains 2 things:**
+
 1.  Programming fonts with ligatures added (in `output-fonts/`), including:
-  * [Anonymous Pro](output-fonts/Anonymous_Pro.ttf)
-  * [CamingoCode](output-fonts/CamingoCode.ttf)
-  * [Cousine](output-fonts/Cousine.ttf)
-  * [DejaVu Sans Mono](output-fonts/DejaVuSansMono.ttf)
-  * [Droid Sans Mono](output-fonts/DroidSansMono.ttf)
-  * [edlo](output-fonts/edlo.ttf)
-  * [Hack](output-fonts/Hack.ttf)
-  * [Inconsolata](output-fonts/Inconsolata.ttf) &   [Inconsolata-g](output-fonts/Inconsolata-g.ttf)
-  * IBM Plex Mono: [Regular](output-fonts/IBMPlexMono.ttf),   [Semibold](output-fonts/IBMPlexMono-SemiBold.ttf)
-  * Meslo ([LGL](output-fonts/MesloLGL.ttf),   [LGLDZ](output-fonts/MesloLGLDZ.ttf), [LGM](output-fonts/MesloLGM.ttf),   [LGMDZ](output-fonts/MesloLGMDZ.ttf), [LGS](output-fonts/MesloLGS.ttf),   [LGSDZ](output-fonts/MesloLGSDZ.ttf))
-  * [Oxygen Mono](output-fonts/OxygenMono.ttf)
-  * [Roboto Mono](output-fonts/RobotoMono.ttf)
-  * SF Mono: [Regular](output-fonts/SFMono.ttf),   [Semibold](output-fonts/SFMono-Semibold.ttf)
-  * [Ubuntu Mono](output-fonts/UbuntuMono.ttf)
+    * [Anonymous Pro](output-fonts/LigaAnonymous_Pro.ttf)  
+    * [CamingoCode](output-fonts/LigaCamingoCode.ttf)  
+    * [Cousine](output-fonts/LigaCousine.ttf)  
+    * [DejaVu Sans Mono](output-fonts/LigaDejaVuSansMono.ttf)  
+    * [Droid Sans Mono](output-fonts/LigaDroidSansMono.ttf)  
+    * [edlo](output-fonts/Ligaedlo.ttf)  
+    * [Hack](output-fonts/LigaHack.ttf)  
+    * [Inconsolata](output-fonts/LigaInconsolata.ttf) & [Inconsolata-g](output-fonts/LigaInconsolata-g.ttf)  
+    * IBM Plex Mono: [Regular](output-fonts/LigaIBMPlexMono.ttf), [Semibold](output-fonts/LigaIBMPlexMono-SemiBold.ttf)  
+    * Meslo ([LGL](output-fonts/LigaMesloLGL.ttf), [LGLDZ](output-fonts/LigaMesloLGLDZ.ttf), [LGM](output-fonts/LigaMesloLGM.ttf), [LGMDZ](output-fonts/LigaMesloLGMDZ.ttf), [LGS](output-fonts/LigaMesloLGS.ttf), [LGSDZ](output-fonts/LigaMesloLGSDZ.ttf)  
+    * [Oxygen Mono](output-fonts/LigaOxygenMono.ttf)  
+    * [Roboto Mono](output-fonts/LigaRobotoMono.ttf)  
+    * SF Mono: [Regular](output-fonts/LigaSFMono.ttf), [Semibold](output-fonts/LigaSFMono-Semibold.ttf)  
+    * [Ubuntu Mono](output-fonts/LigaUbuntuMono.ttf)  
 
 2.  A fontforge python script ([ligaturize.py](ligaturize.py)) that adds the ligatures from [Fira Code](https://github.com/tonsky/FiraCode) to a font without ligatures
 
-Here's a couple examples of the fonts generated: SF Mono with ligatures (note the `!=` and `->`):
+Here's a couple examples of the fonts generated: SF Mono & Menlo with ligatures (note the `!=` and `->`):
 ![](images/sf-mono.png)
 ![](images/menlo.png)
-
-**Credit**
-This awesome script was written by [IlyaSkriblovsky](https://github.com/IlyaSkriblovsky) for adding ligatures to Deja Vu Sans Mono ([dv-code-font](https://github.com/IlyaSkriblovsky/dv-code-font)). I made a few changes to generalize the script so that it works for any font, so that I could add ligatures to my favorite fonts.
 
 ## Requirements ##
 **Using the Fonts**: See the [FiraCode README](https://github.com/tonsky/FiraCode) for a list of supported editors.
 
 **Script**: This script requires FontForge python bindings. For Debian/Ubuntu they are available in `python-fontforge` package. For OpenSUSE and NixOS, they are included in the `fontforge` package. For macOS, they are available via brew (`brew install fontforge`).
 
-## Using the Script (automatic) ##
+## Using the Script ##
+### Automatic ###
+
+Use automatic mode to easily convert 1 or more font(s).
 
 1. Put the font(s) you want into `input-fonts/`.
 2.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
 3. Run `make`.
 4. Retrieve the ligaturized fonts from `output-fonts/`.
+5. The output fonts will be renamed with the prefix "Liga".
 
-## Using the Script (manual) ##
+### Manual ###
 
 1.  Move/copy the font you want to ligaturize into `input-fonts/` (or somewhere else convenient).
 2.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
@@ -51,7 +53,13 @@ This awesome script was written by [IlyaSkriblovsky](https://github.com/IlyaSkri
 The font family and weight for the output font (as recorded in the file) will be automatically set based on the name; if the output is `CousineLigaturized-Regular.ttf`, the font family will be `CousineLigaturized` and the font weight will be `Regular`. If no weight is specified, `Regular` is the default.
 
 ## Misc. ##
+### Credit ###
+This script was originally written by [IlyaSkriblovsky](https://github.com/IlyaSkriblovsky) for adding ligatures to DejaVuSans Mono ([dv-code-font](https://github.com/IlyaSkriblovsky/dv-code-font)). I made a few changes to generalize the script so that it works for any font, so that I could add ligatures to my favorite fonts. [ToxicFrog](https://github.com/ToxicFrog) has made a large number of contributions.
 
-For more awesome programming fonts with ligatures, check out:
-1. [FiraCode](https://github.com/tonsky/FiraCode)
-2. [Hasklig](https://github.com/i-tu/Hasklig)
+### Contributions ###
+Contributions always welcome! Please submit a Pull Request, or create an Issue if you have an idea for a feature/enhancement (or bug).
+
+### Related Projects ###
+For more awesome programming fonts with ligatures, check out:  
+1. [FiraCode](https://github.com/tonsky/FiraCode)  
+2. [Hasklig](https://github.com/i-tu/Hasklig)  
