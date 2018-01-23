@@ -1,47 +1,55 @@
 #!/usr/bin/env python
+#
+# usage: fontforge -lang=py ligaturize.py <input file> <output file> [ligature file]
+#
+# It will copy input to output, updating the embedded font name and splicing
+# in the ligatures from FiraCode-Medium.otf (which must be in $PWD). If the
+# ligature file is not specified, it will try to guess an appropriate Fira Code
+# OTF based on the name of the output file.
+#
+# See ligatures.py for a list of all the ligatures that will be copied.
 
 import fontforge
 import os
+from os import path
+import sys
+
+from ligatures import ligatures
 
 # Constants
-SOURCE_FONT_DIR = "input-fonts"
-OUTPUT_FONT_DIR = "output-fonts"
-COPYRIGHT = '\nProgramming ligatures added by Ilya Skriblovsky from FiraCode\nFiraCode Copyright (c) 2015 by Nikita Prokopov'
+COPYRIGHT = '''
+Programming ligatures added by Ilya Skriblovsky from FiraCode
+FiraCode Copyright (c) 2015 by Nikita Prokopov'''
 
-def get_input_fontname():
-    return raw_input('Enter the source font filename (including extension): ')
+def get_ligature_source(fontname):
+    if len(sys.argv) > 3:
+        # User explicitly told us which source to use.
+        return sys.argv[3]
 
-def get_input_path(input_fontname):
-    return SOURCE_FONT_DIR + "/" + input_fontname
+    for weight in ['Bold', 'Retina', 'Medium', 'Regular', 'Light']:
+        if fontname.endswith('-' + weight):
+            # Exact match for one of the Fira Code weights
+            return 'fira/FiraCode-%s.otf' % weight
 
-# "RobotoMono-Regular.ttf" -> "RobotoMono-Regular"
-def name_without_file_extension(fontname):
-    return fontname[:-4] if fontname.endswith(('.otf', '.ttf')) else fontname
+    # No exact match. Guess that we want 'Bold' if the font name has 'Bold' in
+    # it, and 'Regular' otherwise.
+    if 'Bold' in fontname:
+        return 'fira/FiraCode-Bold.otf'
+    return 'fira/FiraCode-Regular.otf'
 
-# "RobotoMono-Regular" -> "RobotoMono"
-def name_without_width_variant(fontname):
-    no_variant = fontname
-    if fontname.endswith("Regular"):
-        no_variant = fontname[:-7]
-    elif fontname.endswith("Book"):
-        no_variant = fontname[:-4]
-    return no_variant[:-1] if (no_variant.endswith(" ") or no_variant.endswith("-")) else no_variant
-
-def get_output_fontname(input_name):
-    new_fontname = raw_input('Enter a name for your ligaturized font -- or press ENTER to use the same name: ')
-    if new_fontname == "":
-        new_fontname = input_name
-    return name_without_width_variant(name_without_file_extension(new_fontname))
-
-def get_output_font_details(fontname):
-    name_with_spaces = split_camel_case(fontname)
+def get_output_font_details(fontpath):
+    fontname = path.splitext(path.basename(fontpath))[0]
+    if '-' in fontname:
+        [family, weight] = fontname.split('-', 1)
+    else:
+        [family, weight] = [fontname, 'Regular']
     return {
-        'filename': fontname + '.ttf',
-        'fontname': fontname,
-        'fullname': name_with_spaces,
-        'familyname': name_with_spaces,
+        'filename': fontpath,
+        'fontname': '%s-%s' % (family, weight),
+        'fullname': '%s %s' % (split_camel_case(family), split_camel_case(weight)),
+        'familyname': family,
         'copyright_add': COPYRIGHT,
-        'unique_id': name_with_spaces,
+        'unique_id': '%s-%s' % (family, weight),
     }
 
 # Add spaces to UpperCamelCase: 'DVCode' -> 'DV Code'
@@ -59,160 +67,6 @@ def split_camel_case(str):
             acc += ch
     return acc
 
-config = {
-    'firacode_ttf': 'FiraCode-Medium.otf',
-
-    'add_ligatures': [
-        {   # <-
-            'chars': ['less', 'hyphen'],
-            'firacode_ligature_name': 'less_hyphen.liga',
-        },
-        {   # <--
-            'chars': ['less', 'hyphen', 'hyphen'],
-            'firacode_ligature_name': 'less_hyphen_hyphen.liga',
-        },
-        {   # ->
-            'chars': ['hyphen', 'greater'],
-            'firacode_ligature_name': 'hyphen_greater.liga',
-        },
-        {   # -->
-            'chars': ['hyphen', 'hyphen', 'greater'],
-            'firacode_ligature_name': 'hyphen_hyphen_greater.liga',
-        },
-        {   # <>
-            'chars': ['less', 'greater'],
-            'firacode_ligature_name': 'less_greater.liga',
-        },
-        {   # <->
-            'chars': ['less', 'hyphen', 'greater'],
-            'firacode_ligature_name': 'less_hyphen_greater.liga',
-        },
-        {   # =>
-            'chars': ['equal', 'greater'],
-            'firacode_ligature_name': 'equal_greater.liga',
-        },
-        {   # ==>
-            'chars': ['equal', 'equal', 'greater'],
-            'firacode_ligature_name': 'equal_equal_greater.liga',
-        },
-        {   # <==
-            'chars': ['less', 'equal', 'equal'],
-            'firacode_ligature_name': 'less_equal_equal.liga',
-        },
-        {   # ?=
-            'chars': ['question', 'equal'],
-            'firacode_ligature_name': 'question_equal.liga',
-        },
-        {   # !=
-            'chars': ['exclam', 'equal'],
-            'firacode_ligature_name': 'exclam_equal.liga',
-        },
-        {   # ==
-            'chars': ['equal', 'equal'],
-            'firacode_ligature_name': 'equal_equal.liga',
-        },
-        {   # <=
-            'chars': ['less', 'equal'],
-            'firacode_ligature_name': 'equal_less.liga',
-        },
-        {   # >=
-            'chars': ['greater', 'equal'],
-            'firacode_ligature_name': 'greater_equal.liga',
-        },
-        {   # ::
-            'chars': ['colon', 'colon'],
-            'firacode_ligature_name': 'colon_colon.liga',
-        },
-        {   # ===
-            'chars': ['equal', 'equal', 'equal'],
-            'firacode_ligature_name': 'equal_equal_equal.liga',
-        },
-        {   # !==
-            'chars': ['exclam', 'equal', 'equal'],
-            'firacode_ligature_name': 'exclam_equal_equal.liga',
-        },
-        {   # ??
-            'chars': ['question', 'question'],
-            'firacode_ligature_name': 'question_question.liga',
-        },
-        {   # !!
-            'chars': ['exclam', 'exclam'],
-            'firacode_ligature_name': 'exclam_exclam.liga',
-        },
-        {   # --
-            'chars': ['hyphen', 'hyphen'],
-            'firacode_ligature_name': 'hyphen_hyphen.liga',
-        },
-        {   # ---
-            'chars': ['hyphen', 'hyphen', 'hyphen'],
-            'firacode_ligature_name': 'hyphen_hyphen_hyphen.liga',
-        },
-        {   # /*
-            'chars': ['slash', 'asterisk'],
-            'firacode_ligature_name': 'slash_asterisk.liga',
-        },
-        {   # /**
-            'chars': ['slash', 'asterisk', 'asterisk'],
-            'firacode_ligature_name': 'slash_asterisk_asterisk.liga',
-        },
-        {   # */
-            'chars': ['asterisk', 'slash'],
-            'firacode_ligature_name': 'asterisk_slash.liga',
-        },
-        {   # //
-            'chars': ['slash', 'slash'],
-            'firacode_ligature_name': 'slash_slash.liga',
-        },
-        {   # ///
-            'chars': ['slash', 'slash', 'slash'],
-            'firacode_ligature_name': 'slash_slash_slash.liga',
-        },
-        {   # ||
-            'chars': ['bar', 'bar'],
-            'firacode_ligature_name': 'bar_bar.liga',
-        },
-        {   # ||=
-            'chars': ['bar', 'bar', 'equal'],
-            'firacode_ligature_name': 'bar_bar_equal.liga',
-        },
-        {   # |=
-            'chars': ['bar', 'equal'],
-            'firacode_ligature_name': 'bar_equal.liga',
-        },
-        {   # ^=
-            'chars': ['asciicircum', 'equal'],
-            'firacode_ligature_name': 'asciicircum_equal.liga',
-        },
-        {   # ~=
-            'chars': ['asciitilde', 'equal'],
-            'firacode_ligature_name': 'asciitilde_equal.liga',
-        },
-        {   # =~
-            'chars': ['equal', 'asciitilde'],
-            'firacode_ligature_name': 'equal_asciitilde.liga',
-        },
-        {   # ~>
-            'chars': ['asciitilde', 'greater'],
-            'firacode_ligature_name': 'asciitilde_greater.liga',
-        },
-        {   # ~~>
-            'chars': ['asciitilde', 'asciitilde', 'greater'],
-            'firacode_ligature_name': 'asciitilde_asciitilde_greater.liga',
-        },
-        {   # <<
-            'chars': ['less', 'less'],
-            'firacode_ligature_name': 'less_less.liga',
-        },
-        {   # >>
-            'chars': ['greater', 'greater'],
-            'firacode_ligature_name': 'greater_greater.liga',
-        },
-        {   # <!--
-            'chars': ['less', 'exclam', 'hyphen', 'hyphen'],
-            'firacode_ligature_name': 'less_exclam_hyphen_hyphen.liga',
-        }
-    ]
-}
 
 class LigatureCreator(object):
 
@@ -222,15 +76,37 @@ class LigatureCreator(object):
 
         self._lig_counter = 0
 
+    def copy_ligature_from_source(self, ligature_name):
+        try:
+            self.firacode.selection.none()
+            self.firacode.selection.select(ligature_name)
+            self.firacode.copy()
+            return True
+        except ValueError:
+            return False
+
     def add_ligature(self, input_chars, firacode_ligature_name):
+        if firacode_ligature_name is None:
+            # No ligature name -- we're just copying a bunch of individual characters.
+            for char in input_chars:
+                self.firacode.selection.none()
+                self.firacode.selection.select(char)
+                self.firacode.copy()
+                self.font.selection.none()
+                self.font.selection.select(char)
+                self.font.paste()
+            return
+
+        if not self.copy_ligature_from_source(firacode_ligature_name):
+            print('Error reading ligature %s from %s -- skipping' % (
+                firacode_ligature_name, self.firacode.fontname))
+            return
+
         self._lig_counter += 1
 
         ligature_name = 'lig.{}'.format(self._lig_counter)
 
         self.font.createChar(-1, ligature_name)
-        firacode.selection.none()
-        firacode.selection.select(firacode_ligature_name)
-        firacode.copy()
         self.font.selection.none()
         self.font.selection.select(ligature_name)
         self.font.paste()
@@ -260,16 +136,42 @@ class LigatureCreator(object):
 
 
         calt_lookup_name = 'calt.{}'.format(self._lig_counter)
-        self.font.addLookup(calt_lookup_name, 'gsub_contextchain', (), (('calt', (('DFLT', ('dflt',)), ('arab', ('dflt',)), ('armn', ('dflt',)), ('cyrl', ('SRB ', 'dflt')), ('geor', ('dflt',)), ('grek', ('dflt',)), ('lao ', ('dflt',)), ('latn', ('CAT ', 'ESP ', 'GAL ', 'ISM ', 'KSM ', 'LSM ', 'MOL ', 'NSM ', 'ROM ', 'SKS ', 'SSM ', 'dflt')), ('math', ('dflt',)), ('thai', ('dflt',)))),))
+        self.font.addLookup(calt_lookup_name, 'gsub_contextchain', (),
+            (('calt', (('DFLT', ('dflt',)),
+                       ('arab', ('dflt',)),
+                       ('armn', ('dflt',)),
+                       ('cyrl', ('SRB ', 'dflt')),
+                       ('geor', ('dflt',)),
+                       ('grek', ('dflt',)),
+                       ('lao ', ('dflt',)),
+                       ('latn', ('CAT ', 'ESP ', 'GAL ', 'ISM ', 'KSM ', 'LSM ', 'MOL ', 'NSM ', 'ROM ', 'SKS ', 'SSM ', 'dflt')),
+                       ('math', ('dflt',)),
+                       ('thai', ('dflt',)))),))
+        #print('CALT %s (%s)' % (calt_lookup_name, firacode_ligature_name))
         for i, char in enumerate(input_chars):
-            ctx_subtable_name = 'calt.{}.{}'.format(self._lig_counter, i)
-            ctx_spec = '{prev} | {cur} @<{lookup}> | {next}'.format(
+            self.add_calt(calt_lookup_name, 'calt.{}.{}'.format(self._lig_counter, i),
+                '{prev} | {cur} @<{lookup}> | {next}',
                 prev = ' '.join(cr_name(j) for j in range(i)),
                 cur = char,
                 lookup = lookup_name(i),
-                next = ' '.join(input_chars[i+1:]),
-            )
-            self.font.addContextualSubtable(calt_lookup_name, ctx_subtable_name, 'glyph', ctx_spec)
+                next = ' '.join(input_chars[i+1:]))
+
+        # Add ignore rules
+        self.add_calt(calt_lookup_name, 'calt.{}.{}'.format(self._lig_counter, i+1),
+            '| {first} | {rest} {last}',
+            first = input_chars[0],
+            rest = ' '.join(input_chars[1:]),
+            last = input_chars[-1])
+        self.add_calt(calt_lookup_name, 'calt.{}.{}'.format(self._lig_counter, i+2),
+            '{first} | {first} | {rest}',
+            first = input_chars[0],
+            rest = ' '.join(input_chars[1:]))
+
+    def add_calt(self, calt_name, subtable_name, spec, **kwargs):
+        spec = spec.format(**kwargs)
+        #print('    %s: %s ' % (subtable_name, spec))
+        self.font.addContextualSubtable(calt_name, subtable_name, 'glyph', spec)
+
 
 
 def change_font_names(font, fontname, fullname, familyname, copyright_add, unique_id):
@@ -282,19 +184,20 @@ def change_font_names(font, fontname, fullname, familyname, copyright_add, uniqu
         for row in font.sfnt_names
     )
 
-input_fontname = get_input_fontname()
-input_font_path = get_input_path(input_fontname)
+input_font_path = sys.argv[1]
+output_font_path = sys.argv[2]
 
-output_fontname = get_output_fontname(input_fontname)
-output_font = get_output_font_details(output_fontname)
+output_font = get_output_font_details(output_font_path)
 
 font = fontforge.open(input_font_path)
-firacode = fontforge.open(config['firacode_ttf'])
+ligature_font_path = get_ligature_source(output_font['fontname'])
+print('Reading ligatures from %s' % ligature_font_path)
+firacode = fontforge.open(ligature_font_path)
 firacode.em = font.em
 
 creator = LigatureCreator(font, firacode)
 ligature_length = lambda lig: len(lig['chars'])
-for lig_spec in sorted(config['add_ligatures'], key = ligature_length):
+for lig_spec in sorted(ligatures, key = ligature_length):
     try:
         creator.add_ligature(lig_spec['chars'], lig_spec['firacode_ligature_name'])
     except Exception as e:
@@ -307,10 +210,11 @@ change_font_names(font, output_font['fontname'],
                         output_font['copyright_add'],
                         output_font['unique_id'])
 
+# Work around a bug in Fontforge where the underline height is subtracted from
+# the underline width when you call generate().
+font.upos += font.uwidth
 
 # Generate font & move to output directory
 output_name = output_font['filename']
-output_full_path = OUTPUT_FONT_DIR + "/" + output_name
-font.generate(output_name)
-os.rename(output_name, output_full_path)
-print "Generated ligaturized font %s in %s" % (output_font['fullname'], output_full_path)
+font.generate(output_font_path)
+print "Generated ligaturized font %s in %s" % (output_font['fullname'], output_font_path)

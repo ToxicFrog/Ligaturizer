@@ -23,44 +23,32 @@
 
 2.  A fontforge python script ([ligaturize.py](ligaturize.py)) that adds the ligatures from [Fira Code](https://github.com/tonsky/FiraCode) to a font without ligatures
 
-Here's a couple examples of the fonts generated: SF Mono with ligatures (note the `!=` and `->`):  
-![](images/sf-mono.png)  
-![](images/menlo.png)  
+Here's a couple examples of the fonts generated: SF Mono with ligatures (note the `!=` and `->`):
+![](images/sf-mono.png)
+![](images/menlo.png)
 
-**Credit**   
+**Credit**
 This awesome script was written by [IlyaSkriblovsky](https://github.com/IlyaSkriblovsky) for adding ligatures to Deja Vu Sans Mono ([dv-code-font](https://github.com/IlyaSkriblovsky/dv-code-font)). I made a few changes to generalize the script so that it works for any font, so that I could add ligatures to my favorite fonts.
 
 ## Requirements ##
 **Using the Fonts**: See the [FiraCode README](https://github.com/tonsky/FiraCode) for a list of supported editors.
 
-**Script**: This script requires FontForge python bindings. For Debian/Ubuntu they are available in `python-fontforge` package. For macOS,
-they are available via brew (`brew install fontforge`).
+**Script**: This script requires FontForge python bindings. For Debian/Ubuntu they are available in `python-fontforge` package. For OpenSUSE and NixOS, they are included in the `fontforge` package. For macOS, they are available via brew (`brew install fontforge`).
 
-## Using the Script ##
-1.  Move/copy the font you want to ligaturize into `input-fonts/`
-2.  Run the script: `$ fontforge -lang=py ligaturize.py`
-3.  You'll be prompted for the name of the font, and the name for the generated font.
-Example:
+## Using the Script (automatic) ##
 
-```shell
-❯ fontforge -lang=py ligaturize.py
-    ...
-Enter the source font filename (including extension): RobotoMono-Regular.ttf
-Enter a name for your ligaturized font -- or press ENTER to use the same name: <PRESS ENTER>
-    ...
-Generated ligaturized font Roboto Mono L in ligaturized-fonts/RobotoMono.ttf
-```
+1. Put the font(s) you want into `input-fonts/`.
+2.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
+3. Run `make`.
+4. Retrieve the ligaturized fonts from `output-fonts/`.
 
-```shell
-❯ fontforge -lang=py ligaturize.py
-    ...
-Enter the source font filename (including extension): RobotoMono-Regular.ttf
-Enter a name for your ligaturized font -- or press ENTER to use the same name: RobotoMonoL
-    ...
-Generated ligaturized font Roboto Mono L in ligaturized-fonts/RobotoMonoL.ttf
-```
+## Using the Script (manual) ##
 
-If you don't provide a name for the new font, it will have the same name as the input font.
+1.  Move/copy the font you want to ligaturize into `input-fonts/` (or somewhere else convenient).
+2.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
+3.  Run the script: `$ fontforge -lang=py ligaturize.py <INPUT> <OUTPUT>`, e.g. `$ fontforge -lang=py ligaturize.py input-fonts/Cousine-Regular.ttf output-fonts/CousineLigaturized-Regular.ttf`
+
+The font family and weight for the output font (as recorded in the file) will be automatically set based on the name; if the output is `CousineLigaturized-Regular.ttf`, the font family will be `CousineLigaturized` and the font weight will be `Regular`. If no weight is specified, `Regular` is the default.
 
 ## Misc. ##
 
