@@ -210,6 +210,9 @@ change_font_names(font, output_font['fontname'],
                         output_font['copyright_add'],
                         output_font['unique_id'])
 
+# Work around a bug in Fontforge where the underline height is subtracted from
+# the underline width when you call generate().
+font.upos += font.uwidth
 
 # Generate font & move to output directory
 output_name = output_font['filename']
