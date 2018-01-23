@@ -8,19 +8,19 @@
 
 1.  Programming fonts with ligatures added (in `output-fonts/`), including:
     * [Anonymous Pro](output-fonts/LigaAnonymous_Pro.ttf)  
-    * [CamingoCode](output-fonts/LigaCamingoCode.ttf)  
-    * [Cousine](output-fonts/LigaCousine.ttf)  
+    * [CamingoCode](output-fonts/LigaCamingoCode-Regular.ttf)  
+    * Cousine: [Regular](output-fonts/LigaCousine-Regular.ttf), [Bold](output-fonts/LigaCousine-Bold.ttf)  
     * [DejaVu Sans Mono](output-fonts/LigaDejaVuSansMono.ttf)  
     * [Droid Sans Mono](output-fonts/LigaDroidSansMono.ttf)  
     * [edlo](output-fonts/Ligaedlo.ttf)  
-    * [Hack](output-fonts/LigaHack.ttf)  
-    * [Inconsolata](output-fonts/LigaInconsolata.ttf) & [Inconsolata-g](output-fonts/LigaInconsolata-g.ttf)  
-    * IBM Plex Mono: [Regular](output-fonts/LigaIBMPlexMono.ttf), [Semibold](output-fonts/LigaIBMPlexMono-SemiBold.ttf)  
-    * Meslo ([LGL](output-fonts/LigaMesloLGL.ttf), [LGLDZ](output-fonts/LigaMesloLGLDZ.ttf), [LGM](output-fonts/LigaMesloLGM.ttf), [LGMDZ](output-fonts/LigaMesloLGMDZ.ttf), [LGS](output-fonts/LigaMesloLGS.ttf), [LGSDZ](output-fonts/LigaMesloLGSDZ.ttf)  
-    * [Oxygen Mono](output-fonts/LigaOxygenMono.ttf)  
-    * [Roboto Mono](output-fonts/LigaRobotoMono.ttf)  
-    * SF Mono: [Regular](output-fonts/LigaSFMono.ttf), [Semibold](output-fonts/LigaSFMono-Semibold.ttf)  
-    * [Ubuntu Mono](output-fonts/LigaUbuntuMono.ttf)  
+    * [Hack](output-fonts/LigaHack-Regular.ttf)  
+    * [Inconsolata](output-fonts/LigaInconsolata-Regular.ttf) & [Inconsolata-g](output-fonts/LigaInconsolata-g.ttf)  
+    * IBM Plex Mono: [Regular](output-fonts/LigaIBMPlexMono-Regular.ttf), [Semibold](output-fonts/LigaIBMPlexMono-SemiBold.ttf)  
+    * Meslo ([LGL](output-fonts/LigaMesloLGL-Regular.ttf), [LGLDZ](output-fonts/LigaMesloLGLDZ-Regular.ttf), [LGM](output-fonts/LigaMesloLGM-Regular.ttf), [LGMDZ](output-fonts/LigaMesloLGMDZ-Regular.ttf), [LGS](output-fonts/LigaMesloLGS-Regular.ttf), [LGSDZ](output-fonts/LigaMesloLGSDZ-Regular.ttf)  
+    * [Oxygen Mono](output-fonts/LigaOxygenMono-Regular.ttf)  
+    * [Roboto Mono](output-fonts/LigaRobotoMono-Regular.ttf)  
+    * SF Mono: [Regular](output-fonts/LigaSFMono-Regular.ttf), [Semibold](output-fonts/LigaSFMono-Semibold.ttf)  
+    * [Ubuntu Mono](output-fonts/LigaUbuntuMono-Regular.ttf)  
 
 2.  A fontforge python script ([ligaturize.py](ligaturize.py)) that adds the ligatures from [Fira Code](https://github.com/tonsky/FiraCode) to a font without ligatures
 
