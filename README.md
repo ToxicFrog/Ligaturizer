@@ -4,6 +4,8 @@
 
 **Add ligatures to any coding font!**
 
+This script copies the ligatures (glyphs and rendering information) from [Fira Code](https://github.com/tonsky/FiraCode) into any other TrueType or OpenType font. (Note that the ligatures are scale-corrected, but otherwise copied as is from Fira Code; it doesn't create new ligature graphics based on the font you're modifying.)
+
 **This repo contains 2 things:**
 
 1.  Programming fonts with ligatures added (in `output-fonts/`), including:
@@ -22,7 +24,7 @@
     * SF Mono: [Regular](output-fonts/LigaSFMono-Regular.ttf), [Semibold](output-fonts/LigaSFMono-Semibold.ttf)  
     * [Ubuntu Mono](output-fonts/LigaUbuntuMono-Regular.ttf)  
 
-2.  A fontforge python script ([ligaturize.py](ligaturize.py)) that adds the ligatures from [Fira Code](https://github.com/tonsky/FiraCode) to a font without ligatures
+2.  A fontforge python script ([ligaturize.py](ligaturize.py)) that you can use to add the Fira Code ligatures to any other font you like.
 
 Here's a couple examples of the fonts generated: SF Mono & Menlo with ligatures (note the `!=` and `->`):
 ![](images/sf-mono.png)
