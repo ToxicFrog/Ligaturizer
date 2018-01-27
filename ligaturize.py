@@ -98,8 +98,7 @@ class LigatureCreator(object):
             return
 
         if not self.copy_ligature_from_source(firacode_ligature_name):
-            print('Error reading ligature %s from %s -- skipping' % (
-                firacode_ligature_name, self.firacode.fontname))
+            # Ligature not in source font.
             return
 
         self._lig_counter += 1
