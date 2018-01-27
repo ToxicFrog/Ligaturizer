@@ -54,6 +54,8 @@ Use automatic mode to easily convert 1 or more font(s).
 
 The font family and weight for the output font (as recorded in the file) will be automatically set based on the name; if the output is `CousineLigaturized-Regular.ttf`, the font family will be `CousineLigaturized` and the font weight will be `Regular`. If no weight is specified, `Regular` is the default.
 
+`ligatures.py` supports some additional command line options to (e.g.) change which font ligatures are copied from; run `fontforge -lang=py ligaturize.py --help` to list them.
+
 ## Misc. ##
 ### Credit ###
 This script was originally written by [IlyaSkriblovsky](https://github.com/IlyaSkriblovsky) for adding ligatures to DejaVuSans Mono ([dv-code-font](https://github.com/IlyaSkriblovsky/dv-code-font)). I made a few changes to generalize the script so that it works for any font, so that I could add ligatures to my favorite fonts. [ToxicFrog](https://github.com/ToxicFrog) has made a large number of contributions.

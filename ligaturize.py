@@ -22,10 +22,6 @@ Programming ligatures added by Ilya Skriblovsky from FiraCode
 FiraCode Copyright (c) 2015 by Nikita Prokopov'''
 
 def get_ligature_source(fontname):
-    if len(sys.argv) > 3:
-        # User explicitly told us which source to use.
-        return sys.argv[3]
-
     for weight in ['Bold', 'Retina', 'Medium', 'Regular', 'Light']:
         if fontname.endswith('-' + weight):
             # Exact match for one of the Fira Code weights
@@ -183,13 +179,30 @@ def change_font_names(font, fontname, fullname, familyname, copyright_add, uniqu
         for row in font.sfnt_names
     )
 
-input_font_path = sys.argv[1]
-output_font_path = sys.argv[2]
+def parse_args():
+    from argparse import ArgumentParser
+    parser = ArgumentParser()
+    parser.add_argument("input_font_path",
+        help="The TTF or OTF font to add ligatures to.")
+    parser.add_argument("output_font_path",
+        help="The file to save the ligaturized font in.")
+    parser.add_argument("--ligature-font-path",
+        type=str, default='', metavar='PATH',
+        help="The file to copy ligatures from. If unspecified, ligaturize will"
+             " attempt to pick a suitable one from fira/ based on the input"
+             " font's weight.")
+    return parser.parse_args()
 
-output_font = get_output_font_details(output_font_path)
+args = parse_args()
 
-font = fontforge.open(input_font_path)
-ligature_font_path = get_ligature_source(output_font['fontname'])
+output_font = get_output_font_details(args.output_font_path)
+font = fontforge.open(args.input_font_path)
+
+if args.ligature_font_path:
+    ligature_font_path = args.ligature_font_path
+else:
+    ligature_font_path = get_ligature_source(output_font['fontname'])
+
 print('Reading ligatures from %s' % ligature_font_path)
 firacode = fontforge.open(ligature_font_path)
 firacode.em = font.em
@@ -215,5 +228,5 @@ font.upos += font.uwidth
 
 # Generate font & move to output directory
 output_name = output_font['filename']
-font.generate(output_font_path)
-print "Generated ligaturized font %s in %s" % (output_font['fullname'], output_font_path)
+font.generate(args.output_font_path)
+print "Generated ligaturized font %s in %s" % (output_font['fullname'], args.output_font_path)
