@@ -10,6 +10,7 @@
 # See ligatures.py for a list of all the ligatures that will be copied.
 
 import fontforge
+import psMat
 import os
 from os import path
 import sys
@@ -72,6 +73,10 @@ class LigatureCreator(object):
         self.opts = opts
         self._lig_counter = 0
 
+        # Scale firacode to correct em height.
+        self.firacode.em = self.font.em
+        self.emwidth = self.font['m'].width
+
     def copy_ligature_from_source(self, ligature_name):
         try:
             self.firacode.selection.none()
@@ -81,7 +86,43 @@ class LigatureCreator(object):
         except ValueError:
             return False
 
+    def correct_character_width(self, glyph):
+        """Width-correct copied individual characters (not ligatures!).
+
+        This will correct the horizontal advance of characters to match the em
+        width of the output font, and (depending on the width of the glyph, the
+        em width of the output font, and the value of the command line option
+        --scale-character-glyphs-threshold) optionally horizontally scale it.
+
+        Glyphs that are not horizontally scaled, but which still need horizontal
+        advance correction, will be centered instead.
+        """
+
+        if glyph.width == self.emwidth:
+            # No correction needed.
+            return
+
+        widthdelta = float(abs(glyph.width - self.emwidth)) / self.emwidth
+        if widthdelta >= self.opts.scale_character_glyphs_threshold:
+            # Character is too wide/narrow compared to output font; scale it.
+            scale = float(self.emwidth) / glyph.width
+            glyph.transform(psMat.scale(scale, 1.0))
+        else:
+            # Do not scale; just center copied characters in their hbox.
+            # Fix horizontal advance first, to recalculate the bearings.
+            glyph.width = self.emwidth
+            # Correct bearings to center the glyph.
+            glyph.left_side_bearing = (glyph.left_side_bearing + glyph.right_side_bearing) / 2
+            glyph.right_side_bearing = glyph.left_side_bearing
+
+        # Final adjustment of horizontal advance to correct for rounding
+        # errors when scaling/centering -- otherwise small errors can result
+        # in visible misalignment near the end of long lines.
+        glyph.width = self.emwidth
+
+
     def copy_character_glyphs(self, chars):
+        """Copy individual (non-ligature) characters from the ligature font."""
         if not self.opts.copy_character_glyphs:
             return
         print("Copying %d character glyphs from %s..." % (
@@ -94,6 +135,7 @@ class LigatureCreator(object):
             self.font.selection.none()
             self.font.selection.select(char)
             self.font.paste()
+            self.correct_character_width(self.font[char])
 
     def add_ligature(self, input_chars, firacode_ligature_name):
         if firacode_ligature_name is None:
@@ -203,6 +245,15 @@ def parse_args():
              " font as well. This will result in punctuation that matches the"
              " ligatures more closely, but may not fit in as well with the rest"
              " of the font.")
+    parser.add_argument("--scale-character-glyphs-threshold",
+        type=float, default=0.1, metavar='THRESHOLD',
+        help="When copying character glyphs, if they differ in width from the"
+             " width of the input font by at least this much, scale them"
+             " horizontally to match the input font even if this noticeably"
+             " changes their aspect ratio. The default (0.1) means to scale if"
+             " they are at least 10%% wider or narrower. A value of 0 will scale"
+             " all copied character glyphs; a value of 2 effectively disables"
+             " character glyph scaling.")
     return parser.parse_args()
 
 args = parse_args()
@@ -217,7 +268,6 @@ else:
 
 print('Reading ligatures from %s' % ligature_font_path)
 firacode = fontforge.open(ligature_font_path)
-firacode.em = font.em
 
 creator = LigatureCreator(font, firacode, args)
 ligature_length = lambda lig: len(lig['chars'])
