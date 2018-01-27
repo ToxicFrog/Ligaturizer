@@ -66,10 +66,10 @@ def split_camel_case(str):
 
 class LigatureCreator(object):
 
-    def __init__(self, font, firacode):
+    def __init__(self, font, firacode, opts):
         self.font = font
         self.firacode = firacode
-
+        self.opts = opts
         self._lig_counter = 0
 
     def copy_ligature_from_source(self, ligature_name):
@@ -81,16 +81,24 @@ class LigatureCreator(object):
         except ValueError:
             return False
 
+    def copy_character_glyphs(self, chars):
+        if not self.opts.copy_character_glyphs:
+            return
+        print("Copying %d character glyphs from %s..." % (
+            len(chars), self.firacode.fullname))
+
+        for char in chars:
+            self.firacode.selection.none()
+            self.firacode.selection.select(char)
+            self.firacode.copy()
+            self.font.selection.none()
+            self.font.selection.select(char)
+            self.font.paste()
+
     def add_ligature(self, input_chars, firacode_ligature_name):
         if firacode_ligature_name is None:
             # No ligature name -- we're just copying a bunch of individual characters.
-            for char in input_chars:
-                self.firacode.selection.none()
-                self.firacode.selection.select(char)
-                self.firacode.copy()
-                self.font.selection.none()
-                self.font.selection.select(char)
-                self.font.paste()
+            self.copy_character_glyphs(input_chars)
             return
 
         if not self.copy_ligature_from_source(firacode_ligature_name):
@@ -98,14 +106,12 @@ class LigatureCreator(object):
             return
 
         self._lig_counter += 1
-
         ligature_name = 'lig.{}'.format(self._lig_counter)
 
         self.font.createChar(-1, ligature_name)
         self.font.selection.none()
         self.font.selection.select(ligature_name)
         self.font.paste()
-
 
         self.font.selection.none()
         self.font.selection.select('space')
@@ -191,6 +197,12 @@ def parse_args():
         help="The file to copy ligatures from. If unspecified, ligaturize will"
              " attempt to pick a suitable one from fira/ based on the input"
              " font's weight.")
+    parser.add_argument("--copy-character-glyphs",
+        default=False, action='store_true',
+        help="Copy glyphs for (some) individual characters from the ligature"
+             " font as well. This will result in punctuation that matches the"
+             " ligatures more closely, but may not fit in as well with the rest"
+             " of the font.")
     return parser.parse_args()
 
 args = parse_args()
@@ -207,7 +219,7 @@ print('Reading ligatures from %s' % ligature_font_path)
 firacode = fontforge.open(ligature_font_path)
 firacode.em = font.em
 
-creator = LigatureCreator(font, firacode)
+creator = LigatureCreator(font, firacode, args)
 ligature_length = lambda lig: len(lig['chars'])
 for lig_spec in sorted(ligatures, key = ligature_length):
     try:

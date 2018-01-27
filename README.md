@@ -49,12 +49,12 @@ Use automatic mode to easily convert 1 or more font(s).
 ### Manual ###
 
 1.  Move/copy the font you want to ligaturize into `input-fonts/` (or somewhere else convenient).
-2.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
+2.  Edit `ligatures.py` to disable any ligatures you don't want.
 3.  Run the script: `$ fontforge -lang=py ligaturize.py <INPUT> <OUTPUT>`, e.g. `$ fontforge -lang=py ligaturize.py input-fonts/Cousine-Regular.ttf output-fonts/CousineLigaturized-Regular.ttf`
 
 The font family and weight for the output font (as recorded in the file) will be automatically set based on the name; if the output is `CousineLigaturized-Regular.ttf`, the font family will be `CousineLigaturized` and the font weight will be `Regular`. If no weight is specified, `Regular` is the default.
 
-`ligatures.py` supports some additional command line options to (e.g.) change which font ligatures are copied from; run `fontforge -lang=py ligaturize.py --help` to list them.
+`ligatures.py` supports some additional command line options to (e.g.) change which font ligatures are copied from or enable copying of individual character glyphs; run `fontforge -lang=py ligaturize.py --help` to list them.
 
 ## Misc. ##
 ### Credit ###
