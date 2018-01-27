@@ -137,6 +137,22 @@ class LigatureCreator(object):
             self.font.paste()
             self.correct_character_width(self.font[char])
 
+    def correct_ligature_width(self, glyph):
+        """Correct the horizontal advance and scale of a ligature."""
+
+        if glyph.width == self.emwidth:
+            return
+
+        # TODO: some kind of threshold here, similar to the character glyph
+        # scale threshold? The largest ligature uses 0.956 of its hbox, so if
+        # the target font is within 4% of the source font size, we don't need to
+        # resize -- but we may want to adjust the bearings. And we can't just
+        # center it, because ligatures are characterized by very large negative
+        # left bearings -- they advance 1em, but draw from (-(n-1))em to +1em.
+        scale = float(self.emwidth) / glyph.width
+        glyph.transform(psMat.scale(scale, 1.0))
+        glyph.width = self.emwidth
+
     def add_ligature(self, input_chars, firacode_ligature_name):
         if firacode_ligature_name is None:
             # No ligature name -- we're just copying a bunch of individual characters.
@@ -154,6 +170,7 @@ class LigatureCreator(object):
         self.font.selection.none()
         self.font.selection.select(ligature_name)
         self.font.paste()
+        self.correct_ligature_width(self.font[ligature_name])
 
         self.font.selection.none()
         self.font.selection.select('space')
