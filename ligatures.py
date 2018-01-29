@@ -1,20 +1,28 @@
+## This is the master list of ligatures that ligaturize.py will attempt to copy
+## from Fira Code to your output font. Ligatures that aren't present in the
+## version of Fira Code you're using will be skipped.
+## To disable ligatures, simply comment them out in this file.
 ligatures = [
-    ## These are all the punctuation characters used in Fira Code ligatures.
-    ## Uncomment this block to enable copying of these characters as well; it
-    ## will make punctuation blend in with the ligatures more cleanly, at the
-    ## cost of blending in with the rest of the font not as well.
-    ## You can also edit the 'chars' list to change exactly which characters
-    ## will be copied.
-    # {
-    #     'chars': [
-    #         'ampersand', 'asciicircum', 'asciitilde', 'asterisk', 'at',
-    #         'backslash', 'bar', 'braceleft', 'braceright', 'bracketleft', 'bracketright',
-    #         'colon', 'dollar', 'equal', 'exclam', 'greater', 'hyphen',
-    #         'less', 'numbersign', 'parenleft', 'percent', 'period', 'plus',
-    #         'question', 'semicolon', 'slash', 'underscore',
-    #     ],
-    #     'firacode_ligature_name': None,
-    # },
+    {
+        ## These are all the punctuation characters used in Fira Code ligatures.
+        ## Use the `--copy-character-glyphs` option to copy these into the output
+        ## font along with the ligatures themselves.
+        'chars': [
+            ## These characters generally look good in most fonts and are
+            ## enabled by default if you use `--copy-character-glyphs`.
+            'ampersand', 'asciicircum', 'asciitilde', 'asterisk',
+            'backslash', 'bar',
+            'colon', 'equal', 'exclam', 'greater', 'hyphen',
+            'less', 'numbersign', 'percent', 'period', 'plus',
+            'question', 'semicolon', 'slash', 'underscore',
+
+            ## These characters are also used by the ligatures, but are likely
+            ## to look more out of place when spliced into another font.
+            # 'at', 'braceleft', 'braceright', 'bracketleft', 'bracketright',
+            # 'dollar', 'parenleft', 'parenright', 'underscore',
+        ],
+        'firacode_ligature_name': None,
+    },
     {   # &&
         'chars': ['ampersand', 'ampersand'],
         'firacode_ligature_name': 'ampersand_ampersand.liga',

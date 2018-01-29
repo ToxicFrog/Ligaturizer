@@ -4,6 +4,8 @@
 
 **Add ligatures to any coding font!**
 
+This script copies the ligatures (glyphs and rendering information) from [Fira Code](https://github.com/tonsky/FiraCode) into any other TrueType or OpenType font. (Note that the ligatures are scale-corrected, but otherwise copied as is from Fira Code; it doesn't create new ligature graphics based on the font you're modifying.)
+
 **This repo contains 2 things:**
 
 1.  Programming fonts with ligatures added (in `output-fonts/`), including:
@@ -22,7 +24,7 @@
     * SF Mono: [Regular](output-fonts/LigaSFMono-Regular.ttf), [Semibold](output-fonts/LigaSFMono-Semibold.ttf)  
     * [Ubuntu Mono](output-fonts/LigaUbuntuMono-Regular.ttf)  
 
-2.  A fontforge python script ([ligaturize.py](ligaturize.py)) that adds the ligatures from [Fira Code](https://github.com/tonsky/FiraCode) to a font without ligatures
+2.  A fontforge python script ([ligaturize.py](ligaturize.py)) that you can use to add the Fira Code ligatures to any other font you like.
 
 Here's a couple examples of the fonts generated: SF Mono & Menlo with ligatures (note the `!=` and `->`):
 ![](images/sf-mono.png)
@@ -47,10 +49,12 @@ Use automatic mode to easily convert 1 or more font(s).
 ### Manual ###
 
 1.  Move/copy the font you want to ligaturize into `input-fonts/` (or somewhere else convenient).
-2.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
+2.  Edit `ligatures.py` to disable any ligatures you don't want.
 3.  Run the script: `$ fontforge -lang=py ligaturize.py <INPUT> <OUTPUT>`, e.g. `$ fontforge -lang=py ligaturize.py input-fonts/Cousine-Regular.ttf output-fonts/CousineLigaturized-Regular.ttf`
 
 The font family and weight for the output font (as recorded in the file) will be automatically set based on the name; if the output is `CousineLigaturized-Regular.ttf`, the font family will be `CousineLigaturized` and the font weight will be `Regular`. If no weight is specified, `Regular` is the default.
+
+`ligatures.py` supports some additional command line options to (e.g.) change which font ligatures are copied from or enable copying of individual character glyphs; run `fontforge -lang=py ligaturize.py --help` to list them.
 
 ## Misc. ##
 ### Credit ###
