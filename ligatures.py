@@ -179,10 +179,6 @@ ligatures = [
         'chars': ['equal', 'greater', 'greater'],
         'firacode_ligature_name': 'equal_greater_greater.liga',
     },
-    {   # =<
-        'chars': ['equal', 'less'],
-        'firacode_ligature_name': 'equal_less.liga',
-    },
     {   # =<<
         'chars': ['equal', 'less', 'less'],
         'firacode_ligature_name': 'equal_less_less.liga',
@@ -534,6 +530,58 @@ ligatures = [
     {   # __
         'chars': ['underscore', 'underscore'],
         'firacode_ligature_name': 'underscore_underscore.liga',
+    },
+    {   # :>
+        'chars': ['colon', 'greater'],
+        'firacode_ligature_name': 'colon_greater.liga',
+    },
+    {   # <:
+        'chars': ['less', 'colon'],
+        'firacode_ligature_name': 'less_colon.liga',
+    },
+    {   # ::=
+        'chars': ['colon', 'colon', 'equal'],
+        'firacode_ligature_name': 'colon_colon_equal.liga',
+    },
+    {   # [|
+        'chars': ['bracketleft', 'bar'],
+        'firacode_ligature_name': 'bracketleft_bar.liga',
+    },
+    {   # |]
+        'chars': ['bar', 'bracketright'],
+        'firacode_ligature_name': 'bar_bracketright.liga',
+    },
+    {   # {|
+        'chars': ['braceleft', 'bar'],
+        'firacode_ligature_name': 'braceleft_bar.liga',
+    },
+    {   # |}
+        'chars': ['bar', 'braceright'],
+        'firacode_ligature_name': 'bar_braceright.liga',
+    },
+    {   # ..=
+        'chars': ['period', 'period', 'equal'],
+        'firacode_ligature_name': 'period_period_equal.liga',
+    },
+    {   # =!=
+        'chars': ['equal', 'exclam', 'equal'],
+        'firacode_ligature_name': 'equal_exclam_equal.liga',
+    },
+    {   # |-
+        'chars': ['bar', 'hyphen'],
+        'firacode_ligature_name': 'bar_hyphen.liga',
+    },
+    {   # -|
+        'chars': ['hyphen', 'bar'],
+        'firacode_ligature_name': 'hyphen_bar.liga',
+    },
+    {   # _|_
+        'chars': ['underscore', 'bar', 'underscore'],
+        'firacode_ligature_name': 'underscore_bar_underscore.liga',
+    },
+    {   # #=
+        'chars': ['numbersign', 'equal'],
+        'firacode_ligature_name': 'numbersign_equal.liga',
     },
     {   # www
         'chars': ['w', 'w', 'w'],
