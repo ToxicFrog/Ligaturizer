@@ -7,7 +7,6 @@
 This script copies the ligatures (glyphs and rendering information) from [Fira Code](https://github.com/tonsky/FiraCode) into any other TrueType or OpenType font. (Note that the ligatures are scale-corrected, but otherwise copied as is from Fira Code; it doesn't create new ligature graphics based on the font you're modifying.)
 
 **This repo contains 2 things:**
-
 1.  Programming fonts with ligatures added (in `output-fonts/`), including:
     * [Anonymous Pro](output-fonts/LigaAnonymous_Pro.ttf)  
     * [CamingoCode](output-fonts/LigaCamingoCode-Regular.ttf)  
@@ -15,10 +14,11 @@ This script copies the ligatures (glyphs and rendering information) from [Fira C
     * [DejaVu Sans Mono](output-fonts/LigaDejaVuSansMono.ttf)  
     * [Droid Sans Mono](output-fonts/LigaDroidSansMono.ttf)  
     * [edlo](output-fonts/Ligaedlo.ttf)  
+    * Fantasque Sans Mono: [Normal](output-fonts/FantasqueSansMono-Normal), [NoLoopK variant](output-fonts/FantasqueSansMono-NoLoopK)  
     * [Hack](output-fonts/LigaHack-Regular.ttf)  
     * [Inconsolata](output-fonts/LigaInconsolata-Regular.ttf) & [Inconsolata-g](output-fonts/LigaInconsolata-g.ttf)  
     * IBM Plex Mono: [Regular](output-fonts/LigaIBMPlexMono-Regular.ttf), [Semibold](output-fonts/LigaIBMPlexMono-SemiBold.ttf)  
-    * Meslo ([LGL](output-fonts/LigaMesloLGL-Regular.ttf), [LGLDZ](output-fonts/LigaMesloLGLDZ-Regular.ttf), [LGM](output-fonts/LigaMesloLGM-Regular.ttf), [LGMDZ](output-fonts/LigaMesloLGMDZ-Regular.ttf), [LGS](output-fonts/LigaMesloLGS-Regular.ttf), [LGSDZ](output-fonts/LigaMesloLGSDZ-Regular.ttf)  
+    * Meslo ([LGL](output-fonts/LigaMesloLGL-Regular.ttf), [LGLDZ](output-fonts/LigaMesloLGLDZ-Regular.ttf), [LGM](output-fonts/LigaMesloLGM-Regular.ttf), [LGMDZ](output-fonts/LigaMesloLGMDZ-Regular.ttf), [LGS](output-fonts/LigaMesloLGS-Regular.ttf), [LGSDZ](output-fonts/LigaMesloLGSDZ-Regular.ttf))  
     * [Oxygen Mono](output-fonts/LigaOxygenMono-Regular.ttf)  
     * [Roboto Mono](output-fonts/LigaRobotoMono-Regular.ttf)  
     * SF Mono: [Regular](output-fonts/LigaSFMono-Regular.ttf), [Semibold](output-fonts/LigaSFMono-Semibold.ttf)  
