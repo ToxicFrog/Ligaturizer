@@ -75,7 +75,7 @@ class LigatureCreator(object):
 
         # Scale firacode to correct em height.
         self.firacode.em = self.font.em
-        self.emwidth = self.font['m'].width
+        self.emwidth = self.font[ord('m')].width
 
     def copy_ligature_from_source(self, ligature_name):
         try:
@@ -184,6 +184,12 @@ class LigatureCreator(object):
             self.font.addLookup(lookup_name(i), 'gsub_single', (), ())
             self.font.addLookupSubtable(lookup_name(i), lookup_sub_name(i))
 
+            if char not in self.font:
+                # We assume here that this is because char is a single letter
+                # (e.g. 'w') rather than a character name, and the font we're
+                # editing doesn't have glyphnames for letters.
+                self.font[ord(char)].glyphname = char
+
             if i < len(input_chars) - 1:
                 self.font.createChar(-1, cr_name(i))
                 self.font.selection.none()
@@ -193,7 +199,6 @@ class LigatureCreator(object):
                 self.font[char].addPosSub(lookup_sub_name(i), cr_name(i))
             else:
                 self.font[char].addPosSub(lookup_sub_name(i), ligature_name)
-
 
         calt_lookup_name = 'calt.{}'.format(self._lig_counter)
         self.font.addLookup(calt_lookup_name, 'gsub_contextchain', (),

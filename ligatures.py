@@ -19,7 +19,7 @@ ligatures = [
             ## These characters are also used by the ligatures, but are likely
             ## to look more out of place when spliced into another font.
             # 'at', 'braceleft', 'braceright', 'bracketleft', 'bracketright',
-            # 'dollar', 'parenleft', 'parenright', 'underscore',
+            # 'dollar', 'parenleft', 'parenright', 'underscore', 'w'
         ],
         'firacode_ligature_name': None,
     },
