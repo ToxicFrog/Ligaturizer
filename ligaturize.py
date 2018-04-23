@@ -9,6 +9,8 @@
 #
 # See ligatures.py for a list of all the ligatures that will be copied.
 
+from __future__ import print_function
+
 import fontforge
 import psMat
 import os
@@ -33,37 +35,6 @@ def get_ligature_source(fontname):
     if 'Bold' in fontname:
         return 'fira/FiraCode-Bold.otf'
     return 'fira/FiraCode-Regular.otf'
-
-def get_output_font_details(fontpath):
-    fontname = path.splitext(path.basename(fontpath))[0]
-    if '-' in fontname:
-        [family, weight] = fontname.split('-', 1)
-    else:
-        [family, weight] = [fontname, 'Regular']
-    return {
-        'filename': fontpath,
-        'fontname': '%s-%s' % (family, weight),
-        'fullname': '%s %s' % (split_camel_case(family), split_camel_case(weight)),
-        'familyname': family,
-        'copyright_add': COPYRIGHT,
-        'unique_id': '%s-%s' % (family, weight),
-    }
-
-# Add spaces to UpperCamelCase: 'DVCode' -> 'DV Code'
-def split_camel_case(str):
-    acc = ''
-    for (i, ch) in enumerate(str):
-        prevIsSpace = i > 0 and acc[-1] == ' '
-        nextIsLower = i + 1 < len(str) and str[i + 1].islower()
-        isLast = i + 1 == len(str)
-        if i != 0 and ch.isupper() and (nextIsLower or isLast) and not prevIsSpace:
-            acc += ' ' + ch
-        elif ch == '-' or ch == '_' or ch == '.':
-            acc += ' '
-        else:
-            acc += ch
-    return acc
-
 
 class LigatureCreator(object):
 
@@ -238,14 +209,14 @@ class LigatureCreator(object):
         self.font.addContextualSubtable(calt_name, subtable_name, 'glyph', spec)
 
 
-
-def change_font_names(font, fontname, fullname, familyname, copyright_add, unique_id):
-    font.fontname = fontname
-    font.fullname = fullname
-    font.familyname = familyname
-    font.copyright += copyright_add
+def update_font_metadata(font, prefix):
+    font.fontname = "%s%s" % (prefix, font.fontname)
+    font.fullname = "%s %s" % (prefix, font.fullname)
+    font.familyname = "%s %s" % (prefix, font.familyname)
+    font.copyright += COPYRIGHT
     font.sfnt_names = tuple(
-        (row[0], 'UniqueID', unique_id) if row[1] == 'UniqueID' else row
+        (row[0], 'UniqueID', '%s-%s' % (prefix, row[2]))
+        if row[1] == 'UniqueID' else row
         for row in font.sfnt_names
     )
 
@@ -276,20 +247,26 @@ def parse_args():
              " they are at least 10%% wider or narrower. A value of 0 will scale"
              " all copied character glyphs; a value of 2 effectively disables"
              " character glyph scaling.")
+    parser.add_argument("--prefix",
+        type=str, default="Liga ",
+        help="String to prefix the name of the generated font with.")
     return parser.parse_args()
 
 args = parse_args()
 
-output_font = get_output_font_details(args.output_font_path)
+# print('Converting %s to %s using ligatures from %s' % (
+#     args.input_font_path, args.output_font_path, args.ligature_font_path))
 font = fontforge.open(args.input_font_path)
 
 if args.ligature_font_path:
     ligature_font_path = args.ligature_font_path
 else:
-    ligature_font_path = get_ligature_source(output_font['fontname'])
+    ligature_font_path = get_ligature_source(font.fontname)
 
 print('Reading ligatures from %s' % ligature_font_path)
 firacode = fontforge.open(ligature_font_path)
+
+update_font_metadata(font, args.prefix)
 
 creator = LigatureCreator(font, firacode, args)
 ligature_length = lambda lig: len(lig['chars'])
@@ -300,17 +277,10 @@ for lig_spec in sorted(ligatures, key = ligature_length):
         print('Exception while adding ligature: {}'.format(lig_spec))
         raise
 
-change_font_names(font, output_font['fontname'],
-                        output_font['fullname'],
-                        output_font['familyname'],
-                        output_font['copyright_add'],
-                        output_font['unique_id'])
-
 # Work around a bug in Fontforge where the underline height is subtracted from
 # the underline width when you call generate().
 font.upos += font.uwidth
 
 # Generate font & move to output directory
-output_name = output_font['filename']
 font.generate(args.output_font_path)
-print "Generated ligaturized font %s in %s" % (output_font['fullname'], args.output_font_path)
+print("Generated ligaturized font %s in %s" % (font.fullname, args.output_font_path))

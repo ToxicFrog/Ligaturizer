@@ -1,6 +1,6 @@
 # Alternate options for ligaturize.py.
 # Run `fontforge -lang=py ligaturize.py --help` for details.
-LIGATURIZE_OPTS=
+LIGATURIZE_OPTS=--prefix=Liga
 # LIGATURIZE_OPTS+=" --copy-character-glyphs"
 # LIGATURIZE_OPTS+=" --scale-character-glyphs-threshold=0.0"
 # LIGATURIZE_OPTS+=" --scale-character-glyphs-threshold=2.0"
