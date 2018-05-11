@@ -1,0 +1,3 @@
+[submodule "fira"]
+	path = fira
+	url = https://github.com/tonsky/FiraCode
