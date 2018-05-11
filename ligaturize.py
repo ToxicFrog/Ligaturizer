@@ -38,13 +38,13 @@ def get_ligature_source(fontname):
     for weight in ['Bold', 'Retina', 'Medium', 'Regular', 'Light']:
         if fontname.endswith('-' + weight):
             # Exact match for one of the Fira Code weights
-            return 'fira/FiraCode-%s.otf' % weight
+            return 'fira/distr/otf/FiraCode-%s.otf' % weight
 
     # No exact match. Guess that we want 'Bold' if the font name has 'Bold' in
     # it, and 'Regular' otherwise.
     if 'Bold' in fontname:
-        return 'fira/FiraCode-Bold.otf'
-    return 'fira/FiraCode-Regular.otf'
+        return 'fira/distr/otf/FiraCode-Bold.otf'
+    return 'fira/distr/otf/FiraCode-Regular.otf'
 
 class LigatureCreator(object):
 
@@ -240,7 +240,7 @@ def parse_args():
     parser.add_argument("--ligature-font-path",
         type=str, default='', metavar='PATH',
         help="The file to copy ligatures from. If unspecified, ligaturize will"
-             " attempt to pick a suitable one from fira/ based on the input"
+             " attempt to pick a suitable one from fira/distr/otf/ based on the input"
              " font's weight.")
     parser.add_argument("--copy-character-glyphs",
         default=False, action='store_true',
