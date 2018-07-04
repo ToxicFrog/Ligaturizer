@@ -14,5 +14,5 @@ OTF_OUTS=$(patsubst input-fonts/%.otf,output-fonts/Liga%.ttf,${OTF_SRCS})
 all: ${TTF_OUTS} ${OTF_OUTS}
 
 output-fonts/Liga%.ttf: input-fonts/%.* ligatures.py ligaturize.py
-	fontforge -lang=py ligaturize.py $(LIGATURIZE_OPTS) "$<" "$@" 2>&1 \
+	fontforge -lang=py -script ligaturize.py $(LIGATURIZE_OPTS) "$<" "$@" 2>&1 \
 	| fgrep -v 'This contextual rule applies no lookups.'
