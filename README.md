@@ -8,21 +8,21 @@ This script copies the ligatures (glyphs and rendering information) from [Fira C
 
 **This repo contains 2 things:**
 1.  Programming fonts with ligatures added (in `output-fonts/`), including:
-    * [Anonymous Pro](output-fonts/LigaAnonymous_Pro.ttf)  
-    * [CamingoCode](output-fonts/LigaCamingoCode-Regular.ttf)  
-    * Cousine: [Regular](output-fonts/LigaCousine-Regular.ttf), [Bold](output-fonts/LigaCousine-Bold.ttf)  
-    * [DejaVu Sans Mono](output-fonts/LigaDejaVuSansMono.ttf)  
-    * [Droid Sans Mono](output-fonts/LigaDroidSansMono.ttf)  
-    * [edlo](output-fonts/Ligaedlo.ttf)  
-    * Fantasque Sans Mono: [Normal](output-fonts/FantasqueSansMono-Normal), [NoLoopK variant](output-fonts/FantasqueSansMono-NoLoopK)  
-    * [Hack](output-fonts/LigaHack-Regular.ttf)  
-    * [Inconsolata](output-fonts/LigaInconsolata-Regular.ttf) & [Inconsolata-g](output-fonts/LigaInconsolata-g.ttf)  
-    * IBM Plex Mono: [Regular](output-fonts/LigaIBMPlexMono-Regular.ttf), [Semibold](output-fonts/LigaIBMPlexMono-SemiBold.ttf)  
-    * Meslo ([LGL](output-fonts/LigaMesloLGL-Regular.ttf), [LGLDZ](output-fonts/LigaMesloLGLDZ-Regular.ttf), [LGM](output-fonts/LigaMesloLGM-Regular.ttf), [LGMDZ](output-fonts/LigaMesloLGMDZ-Regular.ttf), [LGS](output-fonts/LigaMesloLGS-Regular.ttf), [LGSDZ](output-fonts/LigaMesloLGSDZ-Regular.ttf))  
-    * [Oxygen Mono](output-fonts/LigaOxygenMono-Regular.ttf)  
-    * [Roboto Mono](output-fonts/LigaRobotoMono-Regular.ttf)  
-    * SF Mono: [Regular](output-fonts/LigaSFMono-Regular.ttf), [Semibold](output-fonts/LigaSFMono-Semibold.ttf)  
-    * [Ubuntu Mono](output-fonts/LigaUbuntuMono-Regular.ttf)  
+    * [Anonymous Pro](output-fonts/LigaAnonymous_Pro.ttf)
+    * [CamingoCode](output-fonts/LigaCamingoCode-Regular.ttf)
+    * Cousine: [Regular](output-fonts/LigaCousine-Regular.ttf), [Bold](output-fonts/LigaCousine-Bold.ttf)
+    * [DejaVu Sans Mono](output-fonts/LigaDejaVuSansMono.ttf)
+    * [Droid Sans Mono](output-fonts/LigaDroidSansMono.ttf)
+    * [edlo](output-fonts/Ligaedlo.ttf)
+    * Fantasque Sans Mono: [Normal](output-fonts/FantasqueSansMono-Normal), [NoLoopK variant](output-fonts/FantasqueSansMono-NoLoopK)
+    * [Hack](output-fonts/LigaHack-Regular.ttf)
+    * [Inconsolata](output-fonts/LigaInconsolata-Regular.ttf) & [Inconsolata-g](output-fonts/LigaInconsolata-g.ttf)
+    * IBM Plex Mono: [Regular](output-fonts/LigaIBMPlexMono-Regular.ttf), [Semibold](output-fonts/LigaIBMPlexMono-SemiBold.ttf)
+    * Meslo ([LGL](output-fonts/LigaMesloLGL-Regular.ttf), [LGLDZ](output-fonts/LigaMesloLGLDZ-Regular.ttf), [LGM](output-fonts/LigaMesloLGM-Regular.ttf), [LGMDZ](output-fonts/LigaMesloLGMDZ-Regular.ttf), [LGS](output-fonts/LigaMesloLGS-Regular.ttf), [LGSDZ](output-fonts/LigaMesloLGSDZ-Regular.ttf))
+    * [Oxygen Mono](output-fonts/LigaOxygenMono-Regular.ttf)
+    * [Roboto Mono](output-fonts/LigaRobotoMono-Regular.ttf)
+    * SF Mono: [Regular](output-fonts/LigaSFMono-Regular.ttf), [Semibold](output-fonts/LigaSFMono-Semibold.ttf)
+    * [Ubuntu Mono](output-fonts/LigaUbuntuMono-Regular.ttf)
 
 2.  A fontforge python script ([ligaturize.py](ligaturize.py)) that you can use to add the Fira Code ligatures to any other font you like.
 
@@ -50,7 +50,7 @@ Use automatic mode to easily convert 1 or more font(s).
 
 1.  Move/copy the font you want to ligaturize into `input-fonts/` (or somewhere else convenient).
 2.  Edit `ligatures.py` to disable any ligatures you don't want.
-3.  Run the script: `$ fontforge -lang=py ligaturize.py <INPUT> <OUTPUT>`, e.g. `$ fontforge -lang=py ligaturize.py input-fonts/Cousine-Regular.ttf output-fonts/CousineLigaturized-Regular.ttf`
+3.  Run the script: `$ fontforge -lang=py -script ligaturize.py <INPUT> <OUTPUT>`, e.g. `$ fontforge -lang=py ligaturize.py input-fonts/Cousine-Regular.ttf output-fonts/CousineLigaturized-Regular.ttf`
 
 The font family and weight for the output font (as recorded in the file) will be automatically set based on the name; if the output is `CousineLigaturized-Regular.ttf`, the font family will be `CousineLigaturized` and the font weight will be `Regular`. If no weight is specified, `Regular` is the default.
 
@@ -58,12 +58,12 @@ The font family and weight for the output font (as recorded in the file) will be
 
 ## Misc. ##
 ### Credit ###
-This script was originally written by [IlyaSkriblovsky](https://github.com/IlyaSkriblovsky) for adding ligatures to DejaVuSans Mono ([dv-code-font](https://github.com/IlyaSkriblovsky/dv-code-font)). I made a few changes to generalize the script so that it works for any font, so that I could add ligatures to my favorite fonts. [ToxicFrog](https://github.com/ToxicFrog) has made a large number of contributions.
+This script was originally written by [IlyaSkriblovsky](https://github.com/IlyaSkriblovsky) for adding ligatures to DejaVuSans Mono ([dv-code-font](https://github.com/IlyaSkriblovsky/dv-code-font)). [Navid Rojiani](https://github.com/rojiani) made a few changes to generalize the script so that it works for any font. [ToxicFrog](https://github.com/ToxicFrog) has made a large number of contributions.
 
 ### Contributions ###
 Contributions always welcome! Please submit a Pull Request, or create an Issue if you have an idea for a feature/enhancement (or bug).
 
 ### Related Projects ###
-For more awesome programming fonts with ligatures, check out:  
-1. [FiraCode](https://github.com/tonsky/FiraCode)  
-2. [Hasklig](https://github.com/i-tu/Hasklig)  
+For more awesome programming fonts with ligatures, check out:
+1. [FiraCode](https://github.com/tonsky/FiraCode)
+2. [Hasklig](https://github.com/i-tu/Hasklig)
