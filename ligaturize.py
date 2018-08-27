@@ -24,6 +24,16 @@ COPYRIGHT = '''
 Programming ligatures added by Ilya Skriblovsky from FiraCode
 FiraCode Copyright (c) 2015 by Nikita Prokopov'''
 
+VERSION_MISMATCH = '''
+Ligaturizer only supports Python 2.x due to a bug in Fontforge:
+  https://github.com/fontforge/fontforge/issues/3057
+You will need to install Fontforge for Python 2 to use this script.
+'''
+
+if sys.version_info[0] != 2:
+    print(VERSION_MISMATCH)
+    sys.exit(1)
+
 def get_ligature_source(fontname):
     for weight in ['Bold', 'Retina', 'Medium', 'Regular', 'Light']:
         if fontname.endswith('-' + weight):
