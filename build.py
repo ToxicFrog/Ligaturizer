@@ -25,10 +25,10 @@ SCALE_CHARACTER_GLYPHS_THRESHOLD = 0.1
 
 prefixed_fonts = [
   # Apache 2.0 license
-  'Cousine*',
+  'google/apache/cousine/*.ttf',
   'Droid*',
   'Meslo*',
-  'Roboto*',
+  'google/apache/robotomono/*.ttf',
 
   # MIT license
   'DejaVu*',
@@ -37,7 +37,7 @@ prefixed_fonts = [
   # SIL OFL with no Reserved Font Name
   'Edlo*',
   'FantasqueSansMono-Normal/*',
-  'Inconsolata*',
+  'google/ofl/inconsolata/*.ttf',
 ]
 
 #### Fonts that need to be renamed. ####
@@ -51,14 +51,14 @@ renamed_fonts = {
   'FantasqueSansMono-NoLoopK/*': 'Liga Fantasque Sans Mono NoLoopK',
 
   # SIL OFL with reserved name
-  'Anonymous*': 'Liganymous',
-  'IBMPlexMono*': 'Ligalex Mono',
-  'OxygenMono*': 'Liga O2 Mono',
-  'SourceCodePro*': 'LigaSrc Pro',
+  'google/ofl/anonymouspro/*.ttf': 'Liganymous',
+  'google/ofl/ibmplexmono/*.ttf': 'Ligalex Mono',
+  'google/ofl/oxygenmono/*.ttf': 'Liga O2 Mono',
+  'google/ofl/sourcecodepro/*.ttf': 'LigaSrc Pro',
   'SourceCodeVariable*': 'LigaSrc Variable',
 
   # UFL
-  'UbuntuMono*': 'Ubuntu Mono Ligaturized',
+  'google/ufl/ubuntumono/*.ttf': 'Ubuntu Mono Ligaturized',
 }
 
 #### Fonts we can't ligaturize. ####
@@ -74,12 +74,17 @@ renamed_fonts = {
 
 #### No user serviceable parts below this line. ####
 
+import sys
 from glob import glob
 from os import path
 from ligaturize import ligaturize_font
 
 for pattern in prefixed_fonts:
-  for input_file in glob(path.join('input-fonts', pattern)):
+  files = glob(path.join('input-fonts', pattern))
+  if not files:
+    print("Error: pattern 'input-fonts/%s' didn't match any files." % pattern)
+    sys.exit(1)
+  for input_file in files:
     ligaturize_font(
       input_file, ligature_font_file=None, output_dir='output-fonts/',
       prefix=LIGATURIZED_FONT_NAME_PREFIX, output_name=None,
@@ -87,7 +92,11 @@ for pattern in prefixed_fonts:
       scale_character_glyphs_threshold=SCALE_CHARACTER_GLYPHS_THRESHOLD)
 
 for pattern,name in renamed_fonts.iteritems():
-  for input_file in glob(path.join('input-fonts', pattern)):
+  files = glob(path.join('input-fonts', pattern))
+  if not files:
+    print("Error: pattern 'input-fonts/%s' didn't match any files." % pattern)
+    sys.exit(1)
+  for input_file in files:
     ligaturize_font(
       input_file, ligature_font_file=None, output_dir='output-fonts/',
       prefix=None, output_name=name,

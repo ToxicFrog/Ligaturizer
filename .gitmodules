@@ -1,3 +1,7 @@
 [submodule "fira"]
 	path = fira
 	url = https://github.com/tonsky/FiraCode
+[submodule "google-fonts"]
+	path = input-fonts/google
+	url = https://github.com/google/fonts.git
+	shallow = true
