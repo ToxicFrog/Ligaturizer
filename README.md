@@ -40,19 +40,35 @@ Here's a couple examples of the fonts generated: SF Mono & Menlo with ligatures 
 
 Use automatic mode to easily convert 1 or more font(s).
 
-1. Put the font(s) you want into `input-fonts/`.
-2.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
-3. Run `make`.
-4. Retrieve the ligaturized fonts from `output-fonts/`.
-5. The output fonts will be renamed with the prefix "Liga".
+1.  Put the font(s) you want into `input-fonts/`.
+1.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
+1.  Edit `build.py` to add your new font(s) to the `prefixed_fonts` list. It supports globbing, so if (e.g.) you want to ligaturize all the different weights of FooFont you can add `'FooFont*'` to the list.
+1.  Run `make`.
+1.  Retrieve the ligaturized fonts from `output-fonts/`.
+1.  The output fonts will be renamed with the prefix "Liga".
 
 ### Manual ###
 
 1.  Move/copy the font you want to ligaturize into `input-fonts/` (or somewhere else convenient).
 2.  Edit `ligatures.py` to disable any ligatures you don't want.
-3.  Run the script: `$ fontforge -lang=py -script ligaturize.py <INPUT> <OUTPUT>`, e.g. `$ fontforge -lang=py ligaturize.py input-fonts/Cousine-Regular.ttf output-fonts/CousineLigaturized-Regular.ttf`
+3.  Run the script:
 
-The font family and weight for the output font (as recorded in the file) will be automatically set based on the name; if the output is `CousineLigaturized-Regular.ttf`, the font family will be `CousineLigaturized` and the font weight will be `Regular`. If no weight is specified, `Regular` is the default.
+    ```
+    $ fontforge -lang py -script ligaturize.py path/to/input/font.ttf
+        --output-dir=path/to/output/dir/ \
+        --output-name='Name of Ligaturized Font'
+    ```
+    e.g.
+
+    ```
+    $ fontforge -lang py -script ligaturize.py fonts/Cousine-Regular.ttf
+        --output-dir='fonts/' \
+        --output-name='Ligaturized Cousine'
+```
+
+    Which will produce `fonts/LigaturizedCousine-Regular.ttf`.
+
+The font weight will be inherited from the original file; the font name will be replaced with whatever you specified in `--output-name`. You can also use `--prefix` instead, in which case the original name will be preserved and whatever you put in `--prefix` will be prepended to it.
 
 `ligatures.py` supports some additional command line options to (e.g.) change which font ligatures are copied from or enable copying of individual character glyphs; run `fontforge -lang=py ligaturize.py --help` to list them.
 

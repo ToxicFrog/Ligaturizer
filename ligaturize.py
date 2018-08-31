@@ -48,10 +48,13 @@ def get_ligature_source(fontname):
 
 class LigatureCreator(object):
 
-    def __init__(self, font, firacode, opts):
+    def __init__(self, font, firacode,
+                 scale_character_glyphs_threshold,
+                 copy_character_glyphs):
         self.font = font
         self.firacode = firacode
-        self.opts = opts
+        self.scale_character_glyphs_threshold = scale_character_glyphs_threshold
+        self.should_copy_character_glyphs = copy_character_glyphs
         self._lig_counter = 0
 
         # Scale firacode to correct em height.
@@ -84,7 +87,7 @@ class LigatureCreator(object):
             return
 
         widthdelta = float(abs(glyph.width - self.emwidth)) / self.emwidth
-        if widthdelta >= self.opts.scale_character_glyphs_threshold:
+        if widthdelta >= self.scale_character_glyphs_threshold:
             # Character is too wide/narrow compared to output font; scale it.
             scale = float(self.emwidth) / glyph.width
             glyph.transform(psMat.scale(scale, 1.0))
@@ -104,7 +107,7 @@ class LigatureCreator(object):
 
     def copy_character_glyphs(self, chars):
         """Copy individual (non-ligature) characters from the ligature font."""
-        if not self.opts.copy_character_glyphs:
+        if not self.should_copy_character_glyphs:
             return
         print("Copying %d character glyphs from %s..." % (
             len(chars), self.firacode.fullname))
@@ -219,25 +222,82 @@ class LigatureCreator(object):
         self.font.addContextualSubtable(calt_name, subtable_name, 'glyph', spec)
 
 
-def update_font_metadata(font, prefix):
-    font.fontname = "%s%s" % (prefix, font.fontname)
-    font.fullname = "%s %s" % (prefix, font.fullname)
-    font.familyname = "%s %s" % (prefix, font.familyname)
+def update_font_metadata(font, new_name):
+    # Figure out the input font's real name (i.e. without a hyphenated suffix)
+    # and hyphenated suffix (if present)
+    old_name = font.familyname
+    try:
+        suffix = font.fontname.split('-')[1]
+    except IndexError:
+        suffix = None
+
+    # Replace the old name with the new name whether or not a suffix was present.
+    # If a suffix was present, append it accordingly.
+    font.familyname = new_name
+    if suffix:
+        font.fullname = "%s %s" % (new_name, suffix)
+        font.fontname = "%s-%s" % (new_name.replace(' ', ''), suffix)
+    else:
+        font.fullname = new_name
+        font.fontname = new_name.replace(' ', '')
+
+    print("Ligaturizing font '%s' as '%s'" % (old_name, new_name))
+
     font.copyright += COPYRIGHT
     font.sfnt_names = tuple(
-        (row[0], 'UniqueID', '%s-%s' % (prefix, row[2]))
+        (row[0], 'UniqueID', '%s; Ligaturized' % font.fullname)
         if row[1] == 'UniqueID' else row
         for row in font.sfnt_names
     )
 
+def ligaturize_font(input_font_file, output_dir, ligature_font_file,
+                    output_name, prefix, **kwargs):
+    font = fontforge.open(input_font_file)
+
+    if not ligature_font_file:
+        ligature_font_file = get_ligature_source(font.fontname)
+
+    if output_name:
+        name = output_name
+    else:
+        name = font.familyname
+    if prefix:
+        name = "%s %s" % (prefix, name)
+
+    update_font_metadata(font, name)
+
+    print('Reading ligatures from %s' % ligature_font_file)
+    firacode = fontforge.open(ligature_font_file)
+
+    creator = LigatureCreator(font, firacode, **kwargs)
+    ligature_length = lambda lig: len(lig['chars'])
+    for lig_spec in sorted(ligatures, key = ligature_length):
+        try:
+            creator.add_ligature(lig_spec['chars'], lig_spec['firacode_ligature_name'])
+        except Exception as e:
+            print('Exception while adding ligature: {}'.format(lig_spec))
+            raise
+
+    # Work around a bug in Fontforge where the underline height is subtracted from
+    # the underline width when you call generate().
+    font.upos += font.uwidth
+
+    # Generate font & move to output directory
+    output_font_file = path.join(output_dir, font.fontname + '.ttf')
+    print("Saved ligaturized font '%s' as %s" % (font.fullname, output_font_file))
+    font.generate(output_font_file)
+
+
 def parse_args():
     from argparse import ArgumentParser
     parser = ArgumentParser()
-    parser.add_argument("input_font_path",
+    parser.add_argument("input_font_file",
         help="The TTF or OTF font to add ligatures to.")
-    parser.add_argument("output_font_path",
-        help="The file to save the ligaturized font in.")
-    parser.add_argument("--ligature-font-path",
+    parser.add_argument("--output-dir",
+        help="The directory to save the ligaturized font in. The actual filename"
+             " will be automatically generated based on the input font name and"
+             " the --prefix and --output-name flags.")
+    parser.add_argument("--ligature-font-file",
         type=str, default='', metavar='PATH',
         help="The file to copy ligatures from. If unspecified, ligaturize will"
              " attempt to pick a suitable one from fira/distr/otf/ based on the input"
@@ -258,39 +318,15 @@ def parse_args():
              " all copied character glyphs; a value of 2 effectively disables"
              " character glyph scaling.")
     parser.add_argument("--prefix",
-        type=str, default="Liga ",
+        type=str, default="Liga",
         help="String to prefix the name of the generated font with.")
+    parser.add_argument("--output-name",
+        type=str, default="",
+        help="Name of the generated font. Completely replaces the original.")
     return parser.parse_args()
 
-args = parse_args()
+def main():
+    ligaturize_font(**vars(parse_args()))
 
-# print('Converting %s to %s using ligatures from %s' % (
-#     args.input_font_path, args.output_font_path, args.ligature_font_path))
-font = fontforge.open(args.input_font_path)
-
-if args.ligature_font_path:
-    ligature_font_path = args.ligature_font_path
-else:
-    ligature_font_path = get_ligature_source(font.fontname)
-
-print('Reading ligatures from %s' % ligature_font_path)
-firacode = fontforge.open(ligature_font_path)
-
-update_font_metadata(font, args.prefix)
-
-creator = LigatureCreator(font, firacode, args)
-ligature_length = lambda lig: len(lig['chars'])
-for lig_spec in sorted(ligatures, key = ligature_length):
-    try:
-        creator.add_ligature(lig_spec['chars'], lig_spec['firacode_ligature_name'])
-    except Exception as e:
-        print('Exception while adding ligature: {}'.format(lig_spec))
-        raise
-
-# Work around a bug in Fontforge where the underline height is subtracted from
-# the underline width when you call generate().
-font.upos += font.uwidth
-
-# Generate font & move to output directory
-font.generate(args.output_font_path)
-print("Generated ligaturized font %s in %s" % (font.fullname, args.output_font_path))
+if __name__ == '__main__':
+    main()
