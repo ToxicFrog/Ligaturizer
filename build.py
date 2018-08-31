@@ -25,19 +25,19 @@ SCALE_CHARACTER_GLYPHS_THRESHOLD = 0.1
 
 prefixed_fonts = [
   # Apache 2.0 license
-  'google/apache/cousine/*.ttf',
-  'Droid*',
-  'Meslo*',
-  'google/apache/robotomono/*.ttf',
+  'fonts/codeface/fonts/cousine/*.ttf',
+  'fonts/codeface/fonts/droid-sans-mono/*.ttf',
+  'fonts/codeface/fonts/meslo/*.ttf',
+  'fonts/codeface/fonts/roboto-mono/*.ttf',
 
   # MIT license
-  'DejaVu*',
-  'Hack*',
+  'fonts/codeface/fonts/dejavu-sans-mono/*.ttf',
+  'fonts/codeface/fonts/hack/*.ttf',
 
   # SIL OFL with no Reserved Font Name
-  'Edlo*',
-  'FantasqueSansMono-Normal/*',
-  'google/ofl/inconsolata/*.ttf',
+  'fonts/codeface/fonts/edlo/*.ttf',
+  'fonts/codeface/fonts/fantasque-sans-mono/*.ttf',
+  'fonts/codeface/fonts/inconsolata/*.ttf',
 ]
 
 #### Fonts that need to be renamed. ####
@@ -48,17 +48,17 @@ prefixed_fonts = [
 renamed_fonts = {
   # This doesn't have a reserved name, but if we don't rename it it'll collide
   # with its sibling Fantasque Sans Mono Normal, listed above.
-  'FantasqueSansMono-NoLoopK/*': 'Liga Fantasque Sans Mono NoLoopK',
+  'fonts/FantasqueSansMono-NoLoopK/*.otf': 'Liga Fantasque Sans Mono NoLoopK',
 
   # SIL OFL with reserved name
-  'google/ofl/anonymouspro/*.ttf': 'Liganymous',
-  'google/ofl/ibmplexmono/*.ttf': 'Ligalex Mono',
-  'google/ofl/oxygenmono/*.ttf': 'Liga O2 Mono',
-  'google/ofl/sourcecodepro/*.ttf': 'LigaSrc Pro',
-  'SourceCodeVariable*': 'LigaSrc Variable',
+  'fonts/codeface/fonts/anonymous-pro/*.ttf': 'Liganymous',
+  'fonts/plex/IBM-Plex-Mono/fonts/complete/ttf/*.ttf': 'Ligalex Mono',
+  'fonts/codeface/fonts/oxygen-mono/*.otf': 'Liga O2 Mono',
+  'fonts/codeface/fonts/source-code-pro/*.ttf': 'LigaSrc Pro',
+  'fonts/SourceCodeVariable*': 'LigaSrc Variable',
 
   # UFL
-  'google/ufl/ubuntumono/*.ttf': 'Ubuntu Mono Ligaturized',
+  'fonts/codeface/fonts/ubuntu-mono/*.ttf': 'Ubuntu Mono Ligaturized',
 }
 
 #### Fonts we can't ligaturize. ####
@@ -76,13 +76,12 @@ renamed_fonts = {
 
 import sys
 from glob import glob
-from os import path
 from ligaturize import ligaturize_font
 
 for pattern in prefixed_fonts:
-  files = glob(path.join('input-fonts', pattern))
+  files = glob(pattern)
   if not files:
-    print("Error: pattern 'input-fonts/%s' didn't match any files." % pattern)
+    print("Error: pattern '%s' didn't match any files." % pattern)
     sys.exit(1)
   for input_file in files:
     ligaturize_font(
@@ -92,9 +91,9 @@ for pattern in prefixed_fonts:
       scale_character_glyphs_threshold=SCALE_CHARACTER_GLYPHS_THRESHOLD)
 
 for pattern,name in renamed_fonts.iteritems():
-  files = glob(path.join('input-fonts', pattern))
+  files = glob(pattern)
   if not files:
-    print("Error: pattern 'input-fonts/%s' didn't match any files." % pattern)
+    print("Error: pattern '%s' didn't match any files." % pattern)
     sys.exit(1)
   for input_file in files:
     ligaturize_font(

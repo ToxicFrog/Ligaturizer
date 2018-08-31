@@ -40,7 +40,7 @@ Here's a couple examples of the fonts generated: SF Mono & Menlo with ligatures 
 
 Use automatic mode to easily convert 1 or more font(s).
 
-1.  Put the font(s) you want into `input-fonts/`.
+1.  Put the font(s) you want into `fonts/`.
 1.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
 1.  Edit `build.py` to add your new font(s) to the `prefixed_fonts` list. It supports globbing, so if (e.g.) you want to ligaturize all the different weights of FooFont you can add `'FooFont*'` to the list.
 1.  Run `make`.
@@ -49,7 +49,7 @@ Use automatic mode to easily convert 1 or more font(s).
 
 ### Manual ###
 
-1.  Move/copy the font you want to ligaturize into `input-fonts/` (or somewhere else convenient).
+1.  Move/copy the font you want to ligaturize into `fonts/` (or somewhere else convenient).
 2.  Edit `ligatures.py` to disable any ligatures you don't want.
 3.  Run the script:
 

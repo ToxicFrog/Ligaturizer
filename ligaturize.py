@@ -38,13 +38,13 @@ def get_ligature_source(fontname):
     for weight in ['Bold', 'Retina', 'Medium', 'Regular', 'Light']:
         if fontname.endswith('-' + weight):
             # Exact match for one of the Fira Code weights
-            return 'fira/distr/otf/FiraCode-%s.otf' % weight
+            return 'fonts/fira/distr/otf/FiraCode-%s.otf' % weight
 
     # No exact match. Guess that we want 'Bold' if the font name has 'Bold' in
     # it, and 'Regular' otherwise.
     if 'Bold' in fontname:
-        return 'fira/distr/otf/FiraCode-Bold.otf'
-    return 'fira/distr/otf/FiraCode-Regular.otf'
+        return 'fonts/fira/distr/otf/FiraCode-Bold.otf'
+    return 'fonts/fira/distr/otf/FiraCode-Regular.otf'
 
 class LigatureCreator(object):
 
@@ -241,7 +241,8 @@ def update_font_metadata(font, new_name):
         font.fullname = new_name
         font.fontname = new_name.replace(' ', '')
 
-    print("Ligaturizing font '%s' as '%s'" % (old_name, new_name))
+    print("Ligaturizing font %s (%s) as '%s'" % (
+        path.basename(font.path), old_name, new_name))
 
     font.copyright += COPYRIGHT
     font.sfnt_names = tuple(
@@ -266,7 +267,7 @@ def ligaturize_font(input_font_file, output_dir, ligature_font_file,
 
     update_font_metadata(font, name)
 
-    print('Reading ligatures from %s' % ligature_font_file)
+    print('    ...using ligatures from %s' % ligature_font_file)
     firacode = fontforge.open(ligature_font_file)
 
     creator = LigatureCreator(font, firacode, **kwargs)
@@ -284,7 +285,7 @@ def ligaturize_font(input_font_file, output_dir, ligature_font_file,
 
     # Generate font & move to output directory
     output_font_file = path.join(output_dir, font.fontname + '.ttf')
-    print("Saved ligaturized font '%s' as %s" % (font.fullname, output_font_file))
+    print("    ...saving to '%s' (%s)" % (output_font_file, font.fullname))
     font.generate(output_font_file)
 
 
@@ -300,7 +301,7 @@ def parse_args():
     parser.add_argument("--ligature-font-file",
         type=str, default='', metavar='PATH',
         help="The file to copy ligatures from. If unspecified, ligaturize will"
-             " attempt to pick a suitable one from fira/distr/otf/ based on the input"
+             " attempt to pick a suitable one from fonts/fira/distr/otf/ based on the input"
              " font's weight.")
     parser.add_argument("--copy-character-glyphs",
         default=False, action='store_true',

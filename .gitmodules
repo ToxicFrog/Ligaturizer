@@ -1,7 +1,12 @@
 [submodule "fira"]
-	path = fira
-	url = https://github.com/tonsky/FiraCode
-[submodule "google-fonts"]
-	path = input-fonts/google
-	url = https://github.com/google/fonts.git
+	path = fonts/fira
+	url = https://github.com/tonsky/FiraCode.git
+	shallow = true
+[submodule "codeface"]
+	path = fonts/codeface
+	url = https://github.com/chrissimpkins/codeface.git
+	shallow = true
+[submodule "plex"]
+	path = fonts/plex
+	url = https://github.com/IBM/plex.git
 	shallow = true
