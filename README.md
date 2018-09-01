@@ -15,6 +15,8 @@ Here's a couple examples of the fonts generated: SF Mono & Menlo with ligatures 
 ![](images/menlo.png)
 
 ## Requirements ##
+**This Repo**: You'll need the repo and its submodules, so `git clone` with `--recurse-submodules`.
+
 **Using the Fonts**: See the [FiraCode README](https://github.com/tonsky/FiraCode) for a list of supported editors.
 
 **Script**: This script requires FontForge python bindings. For Debian/Ubuntu they are available in `python-fontforge` package. For OpenSUSE and NixOS, they are included in the `fontforge` package. For macOS, they are available via brew (`brew install fontforge`).
