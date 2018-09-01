@@ -6,25 +6,9 @@
 
 This script copies the ligatures (glyphs and rendering information) from [Fira Code](https://github.com/tonsky/FiraCode) into any other TrueType or OpenType font. (Note that the ligatures are scale-corrected, but otherwise copied as is from Fira Code; it doesn't create new ligature graphics based on the font you're modifying.)
 
-**This repo contains 2 things:**
-1.  Programming fonts with ligatures added (in `output-fonts/`), including:
-    * [Anonymous Pro](output-fonts/LigaAnonymous_Pro.ttf)
-    * [CamingoCode](output-fonts/LigaCamingoCode-Regular.ttf)
-    * Cousine: [Regular](output-fonts/LigaCousine-Regular.ttf), [Bold](output-fonts/LigaCousine-Bold.ttf)
-    * [DejaVu Sans Mono](output-fonts/LigaDejaVuSansMono.ttf)
-    * [Droid Sans Mono](output-fonts/LigaDroidSansMono.ttf)
-    * [edlo](output-fonts/Ligaedlo.ttf)
-    * Fantasque Sans Mono: [Normal](output-fonts/FantasqueSansMono-Normal), [NoLoopK variant](output-fonts/FantasqueSansMono-NoLoopK)
-    * [Hack](output-fonts/LigaHack-Regular.ttf)
-    * [Inconsolata](output-fonts/LigaInconsolata-Regular.ttf) & [Inconsolata-g](output-fonts/LigaInconsolata-g.ttf)
-    * IBM Plex Mono: [Regular](output-fonts/LigaIBMPlexMono-Regular.ttf), [Semibold](output-fonts/LigaIBMPlexMono-SemiBold.ttf)
-    * Meslo ([LGL](output-fonts/LigaMesloLGL-Regular.ttf), [LGLDZ](output-fonts/LigaMesloLGLDZ-Regular.ttf), [LGM](output-fonts/LigaMesloLGM-Regular.ttf), [LGMDZ](output-fonts/LigaMesloLGMDZ-Regular.ttf), [LGS](output-fonts/LigaMesloLGS-Regular.ttf), [LGSDZ](output-fonts/LigaMesloLGSDZ-Regular.ttf))
-    * [Oxygen Mono](output-fonts/LigaOxygenMono-Regular.ttf)
-    * [Roboto Mono](output-fonts/LigaRobotoMono-Regular.ttf)
-    * SF Mono: [Regular](output-fonts/LigaSFMono-Regular.ttf), [Semibold](output-fonts/LigaSFMono-Semibold.ttf)
-    * [Ubuntu Mono](output-fonts/LigaUbuntuMono-Regular.ttf)
+This repo contains a [Fontforge python script](ligaturize.py) that you can use to add the Fira Code ligatures to any font, as well as submodules for some popular coding fonts and [another script](build.py) for ligaturizing all of them at once.
 
-2.  A fontforge python script ([ligaturize.py](ligaturize.py)) that you can use to add the Fira Code ligatures to any other font you like.
+Pre-ligaturized versions are available under [releases](https://github.com/ToxicFrog/Ligaturizer/releases).
 
 Here's a couple examples of the fonts generated: SF Mono & Menlo with ligatures (note the `!=` and `->`):
 ![](images/sf-mono.png)
@@ -44,14 +28,14 @@ Use automatic mode to easily convert 1 or more font(s).
 1.  Edit `ligatures.py` to disable any ligatures you don't want, and/or enable any (non-ligature) characters you want from Fira Code in addition to the ligatures.
 1.  Edit `build.py` to add your new font(s) to the `prefixed_fonts` list. It supports globbing, so if (e.g.) you want to ligaturize all the different weights of FooFont you can add `'FooFont*'` to the list.
 1.  Run `make`.
-1.  Retrieve the ligaturized fonts from `output-fonts/`.
+1.  Retrieve the ligaturized fonts from `fonts/output/`.
 1.  The output fonts will be renamed with the prefix "Liga".
 
 ### Manual ###
 
 1.  Move/copy the font you want to ligaturize into `fonts/` (or somewhere else convenient).
-2.  Edit `ligatures.py` to disable any ligatures you don't want.
-3.  Run the script:
+1.  Edit `ligatures.py` to disable any ligatures you don't want.
+1.  Run the script:
 
     ```
     $ fontforge -lang py -script ligaturize.py path/to/input/font.ttf
@@ -62,11 +46,11 @@ Use automatic mode to easily convert 1 or more font(s).
 
     ```
     $ fontforge -lang py -script ligaturize.py fonts/Cousine-Regular.ttf
-        --output-dir='fonts/' \
+        --output-dir='fonts/output/' \
         --output-name='Ligaturized Cousine'
 ```
 
-    Which will produce `fonts/LigaturizedCousine-Regular.ttf`.
+    Which will produce `fonts/output/LigaturizedCousine-Regular.ttf`.
 
 The font weight will be inherited from the original file; the font name will be replaced with whatever you specified in `--output-name`. You can also use `--prefix` instead, in which case the original name will be preserved and whatever you put in `--prefix` will be prepended to it.
 

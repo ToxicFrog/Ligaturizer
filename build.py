@@ -85,7 +85,7 @@ for pattern in prefixed_fonts:
     sys.exit(1)
   for input_file in files:
     ligaturize_font(
-      input_file, ligature_font_file=None, output_dir='output-fonts/',
+      input_file, ligature_font_file=None, output_dir='fonts/output/',
       prefix=LIGATURIZED_FONT_NAME_PREFIX, output_name=None,
       copy_character_glyphs=COPY_CHARACTER_GLYPHS,
       scale_character_glyphs_threshold=SCALE_CHARACTER_GLYPHS_THRESHOLD)
@@ -97,7 +97,7 @@ for pattern,name in renamed_fonts.iteritems():
     sys.exit(1)
   for input_file in files:
     ligaturize_font(
-      input_file, ligature_font_file=None, output_dir='output-fonts/',
+      input_file, ligature_font_file=None, output_dir='fonts/output/',
       prefix=None, output_name=name,
       copy_character_glyphs=COPY_CHARACTER_GLYPHS,
       scale_character_glyphs_threshold=SCALE_CHARACTER_GLYPHS_THRESHOLD)

@@ -109,8 +109,7 @@ class LigatureCreator(object):
         """Copy individual (non-ligature) characters from the ligature font."""
         if not self.should_copy_character_glyphs:
             return
-        print("Copying %d character glyphs from %s..." % (
-            len(chars), self.firacode.fullname))
+        print("    ...copying %d character glyphs..." % (len(chars)))
 
         for char in chars:
             self.firacode.selection.none()
