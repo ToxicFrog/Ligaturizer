@@ -50,7 +50,7 @@ Use automatic mode to easily convert 1 or more font(s).
     $ fontforge -lang py -script ligaturize.py fonts/Cousine-Regular.ttf
         --output-dir='fonts/output/' \
         --output-name='Ligaturized Cousine'
-```
+    ```
 
     Which will produce `fonts/output/LigaturizedCousine-Regular.ttf`.
 
