@@ -87,10 +87,6 @@ ligatures = [
         'chars': ['backslash', 'backslash'],
         'firacode_ligature_name': 'backslash_backslash.liga',
     },
-    {   # \\
-        'chars': ['backslash', 'backslash'],
-        'firacode_ligature_name': 'backslash_backslash.liga',
-    },
     {   # \\\
         'chars': ['backslash', 'backslash', 'backslash'],
         'firacode_ligature_name': 'backslash_backslash_backslash.liga',
