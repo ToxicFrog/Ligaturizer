@@ -111,6 +111,14 @@ ligatures = [
         'chars': ['bar', 'bar', 'greater'],
         'firacode_ligature_name': 'bar_bar_greater.liga',
     },
+    {   # |}
+        'chars': ['bar', 'braceright'],
+        'firacode_ligature_name': 'bar_braceright.liga',
+    },
+    {   # |]
+        'chars': ['bar', 'bracketright'],
+        'firacode_ligature_name': 'bar_bracketright.liga',
+    },
     {   # |=
         'chars': ['bar', 'equal'],
         'firacode_ligature_name': 'bar_equal.liga',
@@ -119,9 +127,21 @@ ligatures = [
         'chars': ['bar', 'greater'],
         'firacode_ligature_name': 'bar_greater.liga',
     },
+    {   # |-
+        'chars': ['bar', 'hyphen'],
+        'firacode_ligature_name': 'bar_hyphen.liga',
+    },
+    {   # {|
+        'chars': ['braceleft', 'bar'],
+        'firacode_ligature_name': 'braceleft_bar.liga',
+    },
     {   # {-
         'chars': ['braceleft', 'hyphen'],
         'firacode_ligature_name': 'braceleft_hyphen.liga',
+    },
+    {   # [|
+        'chars': ['bracketleft', 'bar'],
+        'firacode_ligature_name': 'bracketleft_bar.liga',
     },
     {   # []
         'chars': ['bracketleft', 'bracketright'],
@@ -139,9 +159,17 @@ ligatures = [
         'chars': ['colon', 'colon', 'colon'],
         'firacode_ligature_name': 'colon_colon_colon.liga',
     },
+    {   # ::=
+        'chars': ['colon', 'colon', 'equal'],
+        'firacode_ligature_name': 'colon_colon_equal.liga',
+    },
     {   # :=
         'chars': ['colon', 'equal'],
         'firacode_ligature_name': 'colon_equal.liga',
+    },
+    {   # :>
+        'chars': ['colon', 'greater'],
+        'firacode_ligature_name': 'colon_greater.liga',
     },
     {   # $>
         'chars': ['dollar', 'greater'],
@@ -166,6 +194,10 @@ ligatures = [
     {   # ==>
         'chars': ['equal', 'equal', 'greater'],
         'firacode_ligature_name': 'equal_equal_greater.liga',
+    },
+    {   # =!=
+        'chars': ['equal', 'exclam', 'equal'],
+        'firacode_ligature_name': 'equal_exclam_equal.liga',
     },
     {   # =>
         'chars': ['equal', 'greater'],
@@ -235,6 +267,10 @@ ligatures = [
         'chars': ['hyphen', 'asciitilde'],
         'firacode_ligature_name': 'hyphen_asciitilde.liga',
     },
+    {   # -|
+        'chars': ['hyphen', 'bar'],
+        'firacode_ligature_name': 'hyphen_bar.liga',
+    },
     {   # -}
         'chars': ['hyphen', 'braceright'],
         'firacode_ligature_name': 'hyphen_braceright.liga',
@@ -302,6 +338,10 @@ ligatures = [
     {   # <|>
         'chars': ['less', 'bar', 'greater'],
         'firacode_ligature_name': 'less_bar_greater.liga',
+    },
+    {   # <:
+        'chars': ['less', 'colon'],
+        'firacode_ligature_name': 'less_colon.liga',
     },
     {   # <$
         'chars': ['less', 'dollar'],
@@ -391,6 +431,10 @@ ligatures = [
         'chars': ['numbersign', 'bracketleft'],
         'firacode_ligature_name': 'numbersign_bracketleft.liga',
     },
+    {   # #=
+        'chars': ['numbersign', 'equal'],
+        'firacode_ligature_name': 'numbersign_equal.liga',
+    },
     {   # #!
         'chars': ['numbersign', 'exclam'],
         'firacode_ligature_name': 'numbersign_exclam.liga',
@@ -442,6 +486,10 @@ ligatures = [
     {   # ..
         'chars': ['period', 'period'],
         'firacode_ligature_name': 'period_period.liga',
+    },
+    {   # ..=
+        'chars': ['period', 'period', 'equal'],
+        'firacode_ligature_name': 'period_period_equal.liga',
     },
     {   # ..<
         'chars': ['period', 'period', 'less'],
@@ -523,61 +571,13 @@ ligatures = [
         'chars': ['slash', 'slash', 'slash'],
         'firacode_ligature_name': 'slash_slash_slash.liga',
     },
-    {   # __
-        'chars': ['underscore', 'underscore'],
-        'firacode_ligature_name': 'underscore_underscore.liga',
-    },
-    {   # :>
-        'chars': ['colon', 'greater'],
-        'firacode_ligature_name': 'colon_greater.liga',
-    },
-    {   # <:
-        'chars': ['less', 'colon'],
-        'firacode_ligature_name': 'less_colon.liga',
-    },
-    {   # ::=
-        'chars': ['colon', 'colon', 'equal'],
-        'firacode_ligature_name': 'colon_colon_equal.liga',
-    },
-    {   # [|
-        'chars': ['bracketleft', 'bar'],
-        'firacode_ligature_name': 'bracketleft_bar.liga',
-    },
-    {   # |]
-        'chars': ['bar', 'bracketright'],
-        'firacode_ligature_name': 'bar_bracketright.liga',
-    },
-    {   # {|
-        'chars': ['braceleft', 'bar'],
-        'firacode_ligature_name': 'braceleft_bar.liga',
-    },
-    {   # |}
-        'chars': ['bar', 'braceright'],
-        'firacode_ligature_name': 'bar_braceright.liga',
-    },
-    {   # ..=
-        'chars': ['period', 'period', 'equal'],
-        'firacode_ligature_name': 'period_period_equal.liga',
-    },
-    {   # =!=
-        'chars': ['equal', 'exclam', 'equal'],
-        'firacode_ligature_name': 'equal_exclam_equal.liga',
-    },
-    {   # |-
-        'chars': ['bar', 'hyphen'],
-        'firacode_ligature_name': 'bar_hyphen.liga',
-    },
-    {   # -|
-        'chars': ['hyphen', 'bar'],
-        'firacode_ligature_name': 'hyphen_bar.liga',
-    },
     {   # _|_
         'chars': ['underscore', 'bar', 'underscore'],
         'firacode_ligature_name': 'underscore_bar_underscore.liga',
     },
-    {   # #=
-        'chars': ['numbersign', 'equal'],
-        'firacode_ligature_name': 'numbersign_equal.liga',
+    {   # __
+        'chars': ['underscore', 'underscore'],
+        'firacode_ligature_name': 'underscore_underscore.liga',
     },
     {   # www
         'chars': ['w', 'w', 'w'],
