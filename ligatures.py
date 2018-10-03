@@ -171,6 +171,10 @@ ligatures = [
         'chars': ['colon', 'greater'],
         'firacode_ligature_name': 'colon_greater.liga',
     },
+    {   # :<
+        'chars': ['colon', 'less'],
+        'firacode_ligature_name': 'colon_less.liga',
+    },
     {   # $>
         'chars': ['dollar', 'greater'],
         'firacode_ligature_name': 'dollar_greater.liga',
@@ -230,6 +234,14 @@ ligatures = [
     {   # !!!
         'chars': ['exclam', 'exclam', 'exclam'],
         'firacode_ligature_name': 'exclam_exclam_exclam.liga',
+    },
+    {   # !!.
+        'chars': ['exclam', 'exclam', 'period'],
+        'firacode_ligature_name': 'exclam_exclam_period.liga',
+    },
+    {   # >:
+        'chars': ['greater', 'colon'],
+        'firacode_ligature_name': 'greater_colon.liga',
     },
     {   # >=
         'chars': ['greater', 'equal'],
@@ -359,6 +371,10 @@ ligatures = [
         'chars': ['less', 'equal', 'equal'],
         'firacode_ligature_name': 'less_equal_equal.liga',
     },
+    {   # <==>
+        'chars': ['less', 'equal', 'equal', 'greater'],
+        'firacode_ligature_name': 'less_equal_equal_greater.liga',
+    },
     {   # <=>
         'chars': ['less', 'equal', 'greater'],
         'firacode_ligature_name': 'less_equal_greater.liga',
@@ -430,6 +446,10 @@ ligatures = [
     {   # #[
         'chars': ['numbersign', 'bracketleft'],
         'firacode_ligature_name': 'numbersign_bracketleft.liga',
+    },
+    {   # #:
+        'chars': ['numbersign', 'colon'],
+        'firacode_ligature_name': 'numbersign_colon.liga',
     },
     {   # #=
         'chars': ['numbersign', 'equal'],
