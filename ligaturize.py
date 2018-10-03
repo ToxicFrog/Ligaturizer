@@ -282,8 +282,15 @@ def ligaturize_font(input_font_file, output_dir, ligature_font_file,
     # the underline width when you call generate().
     font.upos += font.uwidth
 
+    # Generate font type (TTF or OTF) corresponding to input font extension
+    # (defaults to TTF)
+    if input_font_file[-4:].lower() == '.otf':
+        output_font_type = '.otf'
+    else:
+        output_font_type = '.ttf'
+
     # Generate font & move to output directory
-    output_font_file = path.join(output_dir, font.fontname + '.ttf')
+    output_font_file = path.join(output_dir, font.fontname + output_font_type)
     print("    ...saving to '%s' (%s)" % (output_font_file, font.fullname))
     font.generate(output_font_file)
 
