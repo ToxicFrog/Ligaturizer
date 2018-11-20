@@ -583,6 +583,26 @@ ligatures = [
         'chars': ['numbersign', 'equal'],
         'firacode_ligature_name': 'numbersign_equal.liga',
     },
+    {   # <==>
+        'chars': ['less', 'equal','equal','greater'],
+        'firacode_ligature_name': 'less_equal_equal_greater.liga',
+    },
+    {   # #:
+        'chars': ['numbersign', 'colon'],
+        'firacode_ligature_name': 'numbersign_colon.liga',
+    },
+    {   # !!.
+        'chars': ['exclam', 'exclam','period'],
+        'firacode_ligature_name': 'exclam_exclam_period.liga',
+    },
+    {   # >:
+        'chars': ['greater', 'colon'],
+        'firacode_ligature_name': 'greater_colon.liga',
+    },
+    {   # :<
+        'chars': ['colon', 'less'],
+        'firacode_ligature_name': 'colon_less.liga',
+    },
     {   # www
         'chars': ['w', 'w', 'w'],
         'firacode_ligature_name': 'w_w_w.liga',
