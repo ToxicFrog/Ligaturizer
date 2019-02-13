@@ -221,6 +221,14 @@ class LigatureCreator(object):
         self.font.addContextualSubtable(calt_name, subtable_name, 'glyph', spec)
 
 
+def replace_sfnt(font, key, value):
+    font.sfnt_names = tuple(
+        (row[0], key, value)
+        if row[1] == key
+        else row
+        for row in font.sfnt_names
+    )
+
 def update_font_metadata(font, new_name):
     # Figure out the input font's real name (i.e. without a hyphenated suffix)
     # and hyphenated suffix (if present)
@@ -244,11 +252,9 @@ def update_font_metadata(font, new_name):
         path.basename(font.path), old_name, new_name))
 
     font.copyright += COPYRIGHT
-    font.sfnt_names = tuple(
-        (row[0], 'UniqueID', '%s; Ligaturized' % font.fullname)
-        if row[1] == 'UniqueID' else row
-        for row in font.sfnt_names
-    )
+    replace_sfnt(font, 'UniqueID', '%s; Ligaturized' % font.fullname)
+    replace_sfnt(font, 'Preferred Family', new_name)
+    replace_sfnt(font, 'Compatible Full', new_name)
 
 def ligaturize_font(input_font_file, output_dir, ligature_font_file,
                     output_name, prefix, **kwargs):
