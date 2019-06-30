@@ -9,8 +9,6 @@
 #
 # See ligatures.py for a list of all the ligatures that will be copied.
 
-from __future__ import print_function
-
 import fontforge
 import os
 from os import path
