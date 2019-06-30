@@ -90,7 +90,7 @@ for pattern in prefixed_fonts:
       copy_character_glyphs=COPY_CHARACTER_GLYPHS,
       scale_character_glyphs_threshold=SCALE_CHARACTER_GLYPHS_THRESHOLD)
 
-for pattern,name in renamed_fonts.iteritems():
+for pattern,name in renamed_fonts.items():
   files = glob(pattern)
   if not files:
     print("Error: pattern '%s' didn't match any files." % pattern)

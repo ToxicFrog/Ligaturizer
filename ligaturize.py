@@ -9,8 +9,6 @@
 #
 # See ligatures.py for a list of all the ligatures that will be copied.
 
-from __future__ import print_function
-
 import fontforge
 import psMat
 import os
@@ -23,16 +21,6 @@ from ligatures import ligatures
 COPYRIGHT = '''
 Programming ligatures added by Ilya Skriblovsky from FiraCode
 FiraCode Copyright (c) 2015 by Nikita Prokopov'''
-
-VERSION_MISMATCH = '''
-Ligaturizer only supports Python 2.x due to a bug in Fontforge:
-  https://github.com/fontforge/fontforge/issues/3057
-You will need to install Fontforge for Python 2 to use this script.
-'''
-
-if sys.version_info[0] != 2:
-    print(VERSION_MISMATCH)
-    sys.exit(1)
 
 def get_ligature_source(fontname):
     # Become case-insensitive
