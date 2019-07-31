@@ -35,14 +35,16 @@ if sys.version_info[0] != 2:
     sys.exit(1)
 
 def get_ligature_source(fontname):
+    # Become case-insensitive
+    fontname = fontname.lower()
     for weight in ['Bold', 'Retina', 'Medium', 'Regular', 'Light']:
-        if fontname.endswith('-' + weight):
+        if fontname.endswith('-' + weight.lower()):
             # Exact match for one of the Fira Code weights
             return 'fonts/fira/distr/otf/FiraCode-%s.otf' % weight
 
-    # No exact match. Guess that we want 'Bold' if the font name has 'Bold' in
-    # it, and 'Regular' otherwise.
-    if 'Bold' in fontname:
+    # No exact match. Guess that we want 'Bold' if the font name has 'bold' or
+    # 'heavy' in it, and 'Regular' otherwise.
+    if 'bold' in fontname or 'heavy' in fontname:
         return 'fonts/fira/distr/otf/FiraCode-Bold.otf'
     return 'fonts/fira/distr/otf/FiraCode-Regular.otf'
 
@@ -255,6 +257,7 @@ def update_font_metadata(font, new_name):
     replace_sfnt(font, 'UniqueID', '%s; Ligaturized' % font.fullname)
     replace_sfnt(font, 'Preferred Family', new_name)
     replace_sfnt(font, 'Compatible Full', new_name)
+    replace_sfnt(font, 'WWS Family', new_name)
 
 def ligaturize_font(input_font_file, output_dir, ligature_font_file,
                     output_name, prefix, **kwargs):
