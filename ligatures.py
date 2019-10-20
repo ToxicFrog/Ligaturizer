@@ -27,7 +27,7 @@ ligatures = [
         'chars': ['ampersand', 'ampersand'],
         'firacode_ligature_name': 'ampersand_ampersand.liga',
     },
-    {   # &&&
+    {   # &&&  # absent from 2.0
         'chars': ['ampersand', 'ampersand', 'ampersand'],
         'firacode_ligature_name': 'ampersand_ampersand_ampersand.liga',
     },
@@ -39,7 +39,7 @@ ligatures = [
         'chars': ['asciitilde', 'asciitilde'],
         'firacode_ligature_name': 'asciitilde_asciitilde.liga',
     },
-    {   # ~~~
+    {   # ~~~  # absent from 2.0
         'chars': ['asciitilde', 'asciitilde', 'asciitilde'],
         'firacode_ligature_name': 'asciitilde_asciitilde_asciitilde.liga',
     },
@@ -71,7 +71,7 @@ ligatures = [
         'chars': ['asterisk', 'asterisk', 'asterisk'],
         'firacode_ligature_name': 'asterisk_asterisk_asterisk.liga',
     },
-    {   # **/
+    {   # **/  # absent from 2.0
         'chars': ['asterisk', 'asterisk', 'slash'],
         'firacode_ligature_name': 'asterisk_asterisk_slash.liga',
     },
@@ -83,19 +83,23 @@ ligatures = [
         'chars': ['asterisk', 'slash'],
         'firacode_ligature_name': 'asterisk_slash.liga',
     },
-    {   # \\
+    {   # \\   # absent from 2.0
         'chars': ['backslash', 'backslash'],
         'firacode_ligature_name': 'backslash_backslash.liga',
     },
-    {   # \\\
+    {   # \\\  # absent from 2.0
         'chars': ['backslash', 'backslash', 'backslash'],
         'firacode_ligature_name': 'backslash_backslash_backslash.liga',
+    },
+    {   # \/   # new in 2.0
+        'chars': ['backslash', 'slash'],
+        'firacode_ligature_name': 'backslash_slash.liga',
     },
     {   # ||
         'chars': ['bar', 'bar'],
         'firacode_ligature_name': 'bar_bar.liga',
     },
-    {   # |||
+    {   # |||  # absent from 2.0
         'chars': ['bar', 'bar', 'bar'],
         'firacode_ligature_name': 'bar_bar_bar.liga',
     },
@@ -111,6 +115,10 @@ ligatures = [
         'chars': ['bar', 'bar', 'greater'],
         'firacode_ligature_name': 'bar_bar_greater.liga',
     },
+    {   # ||-  # new in 2.0
+        'chars': ['bar', 'bar', 'hyphen'],
+        'firacode_ligature_name': 'bar_bar_hyphen.liga',
+    },
     {   # |}
         'chars': ['bar', 'braceright'],
         'firacode_ligature_name': 'bar_braceright.liga',
@@ -123,6 +131,10 @@ ligatures = [
         'chars': ['bar', 'equal'],
         'firacode_ligature_name': 'bar_equal.liga',
     },
+    {   # |=>  # new in 2.0
+        'chars': ['bar', 'equal', 'greater'],
+        'firacode_ligature_name': 'bar_equal_greater.liga',
+    },
     {   # |>
         'chars': ['bar', 'greater'],
         'firacode_ligature_name': 'bar_greater.liga',
@@ -131,11 +143,15 @@ ligatures = [
         'chars': ['bar', 'hyphen'],
         'firacode_ligature_name': 'bar_hyphen.liga',
     },
+    {   # |->  # new in 2.0
+        'chars': ['bar', 'hyphen', 'greater'],
+        'firacode_ligature_name': 'bar_hyphen_greater.liga',
+    },
     {   # {|
         'chars': ['braceleft', 'bar'],
         'firacode_ligature_name': 'braceleft_bar.liga',
     },
-    {   # {-
+    {   # {-  # absent from 2.0
         'chars': ['braceleft', 'hyphen'],
         'firacode_ligature_name': 'braceleft_hyphen.liga',
     },
@@ -143,7 +159,7 @@ ligatures = [
         'chars': ['bracketleft', 'bar'],
         'firacode_ligature_name': 'bracketleft_bar.liga',
     },
-    {   # []
+    {   # []  # absent from 2.0
         'chars': ['bracketleft', 'bracketright'],
         'firacode_ligature_name': 'bracketleft_bracketright.liga',
     },
@@ -175,7 +191,7 @@ ligatures = [
         'chars': ['dollar', 'greater'],
         'firacode_ligature_name': 'dollar_greater.liga',
     },
-    {   # =~
+    {   # =~  # absent from 2.0
         'chars': ['equal', 'asciitilde'],
         'firacode_ligature_name': 'equal_asciitilde.liga',
     },
@@ -227,7 +243,7 @@ ligatures = [
         'chars': ['exclam', 'exclam'],
         'firacode_ligature_name': 'exclam_exclam.liga',
     },
-    {   # !!!
+    {   # !!!  # absent from 2.0
         'chars': ['exclam', 'exclam', 'exclam'],
         'firacode_ligature_name': 'exclam_exclam_exclam.liga',
     },
@@ -271,7 +287,7 @@ ligatures = [
         'chars': ['hyphen', 'bar'],
         'firacode_ligature_name': 'hyphen_bar.liga',
     },
-    {   # -}
+    {   # -}  # absent from 2.0
         'chars': ['hyphen', 'braceright'],
         'firacode_ligature_name': 'hyphen_braceright.liga',
     },
@@ -355,6 +371,10 @@ ligatures = [
         'chars': ['less', 'equal'],
         'firacode_ligature_name': 'less_equal.liga',
     },
+    {   # <=|  # new in 2.0
+        'chars': ['less', 'equal', 'bar'],
+        'firacode_ligature_name': 'less_equal_bar.liga',
+    },
     {   # <==
         'chars': ['less', 'equal', 'equal'],
         'firacode_ligature_name': 'less_equal_equal.liga',
@@ -378,6 +398,10 @@ ligatures = [
     {   # <-
         'chars': ['less', 'hyphen'],
         'firacode_ligature_name': 'less_hyphen.liga',
+    },
+    {   # <-|  # new in 2.0
+        'chars': ['less', 'hyphen', 'bar'],
+        'firacode_ligature_name': 'less_hyphen_bar.liga',
     },
     {   # <->
         'chars': ['less', 'hyphen', 'greater'],
@@ -471,7 +495,7 @@ ligatures = [
         'chars': ['percent', 'percent'],
         'firacode_ligature_name': 'percent_percent.liga',
     },
-    {   # %%%
+    {   # %%%  # absent from 2.0
         'chars': ['percent', 'percent', 'percent'],
         'firacode_ligature_name': 'percent_percent_percent.liga',
     },
@@ -487,7 +511,7 @@ ligatures = [
         'chars': ['period', 'period'],
         'firacode_ligature_name': 'period_period.liga',
     },
-    {   # ..=
+    {   # ..=  # absent from 2.0
         'chars': ['period', 'period', 'equal'],
         'firacode_ligature_name': 'period_period_equal.liga',
     },
@@ -531,7 +555,7 @@ ligatures = [
         'chars': ['question', 'question'],
         'firacode_ligature_name': 'question_question.liga',
     },
-    {   # ???
+    {   # ???  # absent from 2.0
         'chars': ['question', 'question', 'question'],
         'firacode_ligature_name': 'question_question_question.liga',
     },
@@ -539,7 +563,7 @@ ligatures = [
         'chars': ['semicolon', 'semicolon'],
         'firacode_ligature_name': 'semicolon_semicolon.liga',
     },
-    {   # ;;;
+    {   # ;;;  # absent from 2.0
         'chars': ['semicolon', 'semicolon', 'semicolon'],
         'firacode_ligature_name': 'semicolon_semicolon_semicolon.liga',
     },
@@ -547,9 +571,13 @@ ligatures = [
         'chars': ['slash', 'asterisk'],
         'firacode_ligature_name': 'slash_asterisk.liga',
     },
-    {   # /**
+    {   # /**  # absent from 2.0
         'chars': ['slash', 'asterisk', 'asterisk'],
         'firacode_ligature_name': 'slash_asterisk_asterisk.liga',
+    },
+    {   # /\   # new in 2.0
+        'chars': ['slash', 'backslash'],
+        'firacode_ligature_name': 'slash_backslash.liga',
     },
     {   # /=
         'chars': ['slash', 'equal'],
