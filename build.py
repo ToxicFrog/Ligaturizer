@@ -36,7 +36,6 @@ prefixed_fonts = [
 
   # SIL OFL with no Reserved Font Name
   'fonts/codeface/fonts/edlo/*.ttf',
-  'fonts/codeface/fonts/fantasque-sans-mono/*.ttf',
   'fonts/codeface/fonts/inconsolata/*.ttf',
 ]
 
@@ -48,6 +47,7 @@ prefixed_fonts = [
 renamed_fonts = {
   # This doesn't have a reserved name, but if we don't rename it it'll collide
   # with its sibling Fantasque Sans Mono Normal, listed above.
+  'fonts/FantasqueSansMono-Normal/*.otf': 'Liga Fantasque Sans Mono',
   'fonts/FantasqueSansMono-NoLoopK/*.otf': 'Liga Fantasque Sans Mono NoLoopK',
 
   # SIL OFL with reserved name
