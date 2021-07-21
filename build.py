@@ -49,6 +49,7 @@ renamed_fonts = {
   # with its sibling Fantasque Sans Mono Normal, listed above.
   'fonts/FantasqueSansMono-Normal/*.otf': 'Liga Fantasque Sans Mono',
   'fonts/FantasqueSansMono-NoLoopK/*.otf': 'Liga Fantasque Sans Mono NoLoopK',
+  'fonts/FantasqueSansMono-LargeLineHeight/*.otf': 'Liga Fantasque Sans Mono LargeLineHeight',
 
   # SIL OFL with reserved name
   'fonts/codeface/fonts/anonymous-pro/*.ttf': 'Liganymous',
