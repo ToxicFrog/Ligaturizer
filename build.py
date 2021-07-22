@@ -48,9 +48,13 @@ renamed_fonts = {
   # This doesn't have a reserved name, but if we don't rename it it'll collide
   # with its sibling Fantasque Sans Mono Normal, listed above.
   'fonts/FantasqueSansMono-Normal/*.otf': 'Liga Fantasque Sans Mono',
+  'fonts/FantasqueSansMono-Normal/*.ttf': 'Liga Fantasque Sans Mono',
   'fonts/FantasqueSansMono-NoLoopK/*.otf': 'Liga Fantasque Sans Mono NoLoopK',
+  'fonts/FantasqueSansMono-NoLoopK/*.ttf': 'Liga Fantasque Sans Mono NoLoopK',
   'fonts/FantasqueSansMono-LargeLineHeight/*.otf': 'Liga Fantasque Sans Mono LargeLineHeight',
+  'fonts/FantasqueSansMono-LargeLineHeight/*.ttf': 'Liga Fantasque Sans Mono LargeLineHeight',
   'fonts/FantasqueSansMono-LargeLineHeight-NoLoopK/*.otf': 'Liga Fantasque Sans Mono LargeLineHeight NoLoopK',
+  'fonts/FantasqueSansMono-LargeLineHeight-NoLoopK/*.ttf': 'Liga Fantasque Sans Mono LargeLineHeight NoLoopK',
 
   # SIL OFL with reserved name
   'fonts/codeface/fonts/anonymous-pro/*.ttf': 'Liganymous',
