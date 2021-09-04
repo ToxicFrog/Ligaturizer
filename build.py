@@ -37,6 +37,7 @@ prefixed_fonts = [
   # SIL OFL with no Reserved Font Name
   'fonts/codeface/fonts/edlo/*.ttf',
   'fonts/codeface/fonts/inconsolata/*.ttf',
+  'fonts/spacemono/fonts/*.ttf',
 ]
 
 #### Fonts that need to be renamed. ####

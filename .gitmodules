@@ -10,3 +10,6 @@
 	path = fonts/plex
 	url = https://github.com/IBM/plex.git
 	shallow = true
+[submodule "fonts/spacemono"]
+	path = fonts/spacemono
+	url = https://github.com/googlefonts/spacemono.git
