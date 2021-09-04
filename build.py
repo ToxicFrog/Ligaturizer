@@ -63,6 +63,7 @@ renamed_fonts = {
   'fonts/codeface/fonts/oxygen-mono/*.otf': 'Liga O2 Mono',
   'fonts/codeface/fonts/source-code-pro/*.ttf': 'LigaSrc Pro',
   'fonts/SourceCodeVariable*': 'LigaSrc Variable',
+  'fonts/Hermit/*.otf': 'Ligamit',
 
   # UFL
   'fonts/codeface/fonts/ubuntu-mono/*.ttf': 'Ubuntu Mono Ligaturized',
