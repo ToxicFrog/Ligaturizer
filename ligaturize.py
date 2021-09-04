@@ -3,9 +3,9 @@
 # usage: fontforge -lang=py ligaturize.py <input file> <output file> [ligature file]
 #
 # It will copy input to output, updating the embedded font name and splicing
-# in the ligatures from FiraCode-Medium.otf (which must be in $PWD). If the
+# in the ligatures from FiraCode-Medium.ttf (which must be in $PWD). If the
 # ligature file is not specified, it will try to guess an appropriate Fira Code
-# OTF based on the name of the output file.
+# TTF based on the name of the output file.
 #
 # See ligatures.py for a list of all the ligatures that will be copied.
 
@@ -29,13 +29,13 @@ def get_ligature_source(fontname):
     for weight in ['Bold', 'Retina', 'Medium', 'Regular', 'Light']:
         if fontname.endswith('-' + weight.lower()):
             # Exact match for one of the Fira Code weights
-            return 'fonts/fira/distr/otf/FiraCode-%s.otf' % weight
+            return 'fonts/fira/distr/ttf/FiraCode-%s.ttf' % weight
 
     # No exact match. Guess that we want 'Bold' if the font name has 'bold' or
     # 'heavy' in it, and 'Regular' otherwise.
     if 'bold' in fontname or 'heavy' in fontname:
-        return 'fonts/fira/distr/otf/FiraCode-Bold.otf'
-    return 'fonts/fira/distr/otf/FiraCode-Regular.otf'
+        return 'fonts/fira/distr/ttf/FiraCode-Bold.ttf'
+    return 'fonts/fira/distr/ttf/FiraCode-Regular.ttf'
 
 class LigatureCreator(object):
 
@@ -283,7 +283,7 @@ def ligaturize_font(input_font_file, output_dir, ligature_font_file,
 
     # Generate font type (TTF or OTF) corresponding to input font extension
     # (defaults to TTF)
-    if input_font_file[-4:].lower() == '.otf':
+    if input_font_file[-4:].lower() == '.ttf':
         output_font_type = '.otf'
     else:
         output_font_type = '.ttf'
@@ -306,7 +306,7 @@ def parse_args():
     parser.add_argument("--ligature-font-file",
         type=str, default='', metavar='PATH',
         help="The file to copy ligatures from. If unspecified, ligaturize will"
-             " attempt to pick a suitable one from fonts/fira/distr/otf/ based on the input"
+             " attempt to pick a suitable one from fonts/fira/distr/ttf/ based on the input"
              " font's weight.")
     parser.add_argument("--copy-character-glyphs",
         default=False, action='store_true',
