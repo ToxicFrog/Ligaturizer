@@ -5,3 +5,6 @@ all:
 	fontforge -lang=py -script build.py 2>&1 \
 	| grep -Fv 'This contextual rule applies no lookups.' \
 	| grep -Fv 'Bad device table'
+
+ligature-list:
+	luajit name2dict.lua < fonts/fira/FiraCode.glyphs
