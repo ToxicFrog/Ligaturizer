@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 #
-# usage: fontforge -lang=py ligaturize.py <input file> <output file> [ligature file]
+# usage: fontforge -lang=py ligaturize.py [options]
+# Run with --help for detailed options, or use the `build.py` script to
+# process lots of fonts at once.
 #
-# It will copy input to output, updating the embedded font name and splicing
-# in the ligatures from FiraCode-Medium.otf (which must be in $PWD). If the
-# ligature file is not specified, it will try to guess an appropriate Fira Code
-# OTF based on the name of the output file.
-#
-# See ligatures.py for a list of all the ligatures that will be copied.
+# See ligatures.py for a list of all the ligatures (and, optionally, individual
+# characters) that will be copied.
 
 import fontforge
 import psMat
