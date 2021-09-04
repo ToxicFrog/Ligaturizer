@@ -3,13 +3,7 @@ QWERTYUIOP{}| qwertyuiop[]\
 ASDFGHJKL:"   asdfghjkl;'
 ZXCVBNM< >?   zxcvbnm,./
 
-regenerate with
-fgrep '{   #' ligatures.py \
-  | grep -v absent \
-  | cut -d'#' -f2 \
-  | tr -d ' ' \
-  | egrep '.' \
-  | xargs printf '| %6s %6s %6s %6s %6s %6s %6s %6s |\n' >> testpattern
+regenerate with 'make testpattern >> testpattern'
 
 |      {      {      {      {      {      {     &&     ^= |
 |     ~~    ~~>     ~@     ~=     ~>     ~-     **    *** |
