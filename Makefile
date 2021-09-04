@@ -3,5 +3,5 @@
 
 all:
 	fontforge -lang=py -script build.py 2>&1 \
-	| fgrep -v 'This contextual rule applies no lookups.' \
-	| fgrep -v 'Bad device table'
+	| grep -Fv 'This contextual rule applies no lookups.' \
+	| grep -Fv 'Bad device table'
