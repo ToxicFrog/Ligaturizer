@@ -13,3 +13,6 @@
 [submodule "fonts/spacemono"]
 	path = fonts/spacemono
 	url = https://github.com/googlefonts/spacemono.git
+[submodule "fonts/Montserrat"]
+	path = fonts/Montserrat
+	url = https://github.com/JulietaUla/Montserrat.git

@@ -43,6 +43,8 @@ prefixed_fonts = [
   'fonts/codeface/fonts/edlo/*.ttf',
   'fonts/codeface/fonts/inconsolata/*.ttf',
   'fonts/spacemono/fonts/*.ttf',
+  'fonts/Montserrat/fonts/otf/*.otf',
+  'fonts/Montserrat/fonts/ttf/*.ttf',
 ]
 
 #### Fonts that need to be renamed. ####
