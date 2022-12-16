@@ -248,8 +248,9 @@ def update_font_metadata(font, new_name):
     replace_sfnt(font, 'WWS Family', new_name)
 
 def ligaturize_font(input_font_file, output_dir, ligature_font_file,
-                    output_name, prefix, **kwargs):
-    font = fontforge.open(input_font_file)
+                    output_name, prefix, license_allows_edit, **kwargs):
+    fontforge_open_flags = 1 if license_allows_edit else 0  # 1 = fstypepermitted
+    font = fontforge.open(input_font_file, fontforge_open_flags)
 
     if not ligature_font_file:
         ligature_font_file = get_ligature_source(font.fontname)
@@ -327,6 +328,10 @@ def parse_args():
     parser.add_argument("--output-name",
         type=str, default="",
         help="Name of the generated font. Completely replaces the original.")
+    parser.add_argument("--license-allows-edit",
+        default=False, action="store_true",
+        help="The user has the appropriate license to examine the font no matter"
+             "what the fstype setting is.")
     return parser.parse_args()
 
 def main():
