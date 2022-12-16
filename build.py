@@ -107,7 +107,7 @@ for pattern in prefixed_fonts:
     ligaturize_font(
       input_file, ligature_font_file=None, output_dir=OUTPUT_DIR,
       prefix=LIGATURIZED_FONT_NAME_PREFIX, output_name=None,
-      copy_character_glyphs=COPY_CHARACTER_GLYPHS,
+      license_allows_edit=False, copy_character_glyphs=COPY_CHARACTER_GLYPHS,
       scale_character_glyphs_threshold=SCALE_CHARACTER_GLYPHS_THRESHOLD)
 
 for pattern,name in renamed_fonts.items():
@@ -118,6 +118,6 @@ for pattern,name in renamed_fonts.items():
   for input_file in files:
     ligaturize_font(
       input_file, ligature_font_file=None, output_dir=OUTPUT_DIR,
-      prefix=None, output_name=name,
+      prefix=None, output_name=name, license_allows_edit=False,
       copy_character_glyphs=COPY_CHARACTER_GLYPHS,
       scale_character_glyphs_threshold=SCALE_CHARACTER_GLYPHS_THRESHOLD)
