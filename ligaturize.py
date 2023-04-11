@@ -24,7 +24,7 @@ FiraCode Copyright (c) 2015 by Nikita Prokopov'''
 def get_ligature_source(fontname):
     # Become case-insensitive
     fontname = fontname.lower()
-    for weight in ['Bold', 'Retina', 'Medium', 'Regular', 'Light']:
+    for weight in ['Bold', 'SemiBold', 'Retina', 'Medium', 'Regular', 'Light']:
         if fontname.endswith('-' + weight.lower()):
             # Exact match for one of the Fira Code weights
             return 'fonts/fira/distr/otf/FiraCode-%s.otf' % weight
