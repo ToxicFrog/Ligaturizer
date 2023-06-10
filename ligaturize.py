@@ -85,10 +85,10 @@ class LigatureCreator(object):
             # Fix horizontal advance first, to recalculate the bearings.
             glyph.width = self.emwidth
             # Correct bearings to center the glyph.
-            glyph.left_side_bearing = (
-                glyph.left_side_bearing + glyph.right_side_bearing
-            ) / 2
-            glyph.right_side_bearing = glyph.left_side_bearing
+            glyph.left_side_bearing = int(
+                float(glyph.left_side_bearing + glyph.right_side_bearing) / 2.0
+            )
+            glyph.right_side_bearing = int(glyph.left_side_bearing)
 
         # Final adjustment of horizontal advance to correct for rounding
         # errors when scaling/centering -- otherwise small errors can result
@@ -102,13 +102,15 @@ class LigatureCreator(object):
         print("    ...copying %d character glyphs..." % (len(chars)))
 
         for char in chars:
+            out_char = ord(char_dict[char])
+            out_glyph = self.font[out_char].glyphname
             self.firacode.selection.none()
             self.firacode.selection.select(char)
             self.firacode.copy()
             self.font.selection.none()
-            self.font.selection.select(char)
+            self.font.selection.select(out_glyph)
             self.font.paste()
-            self.correct_character_width(self.font[ord(char_dict[char])])
+            self.correct_character_width(self.font[out_char])
 
     def correct_ligature_width(self, glyph):
         """Correct the horizontal advance and scale of a ligature."""
