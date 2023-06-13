@@ -103,11 +103,16 @@ class LigatureCreator(object):
 
         for char in chars:
             out_char = ord(char_dict[char])
+            in_glyph = self.firacode[out_char].glyphname
             out_glyph = self.font[out_char].glyphname
+            if char != in_glyph:
+                print(
+                    f"copy_character_glyphs: source glyph {char} remapped to {in_glyph}"
+                )
             if char != out_glyph:
                 print(f"copy_character_glyphs: will substitute {char} to {out_glyph}")
             self.firacode.selection.none()
-            self.firacode.selection.select(char)
+            self.firacode.selection.select(in_glyph)
             self.firacode.copy()
             self.font.selection.none()
             self.font.selection.select(out_glyph)
